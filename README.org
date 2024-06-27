@@ -1,0 +1,3 @@
+* Emacs dots
+
+Not intended for public use; clone at your own peril.
