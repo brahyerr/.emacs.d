@@ -27,3 +27,5 @@
 	    (set-face-attribute 'org-headline-done nil             :height 120 :italic 1)
 	    (set-face-attribute 'org-done nil                      :height 120)
 	    (set-face-attribute 'org-todo nil                      :height 120)))
+
+(provide 'fonts)

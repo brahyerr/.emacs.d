@@ -3,3 +3,5 @@
 (setq TeX-source-correlate-method 'synctex) ; Set correlation method
 (add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
 (setq TeX-view-program-selection '((output-pdf "zathura")))
+
+(provide 'latex_local)

@@ -202,3 +202,5 @@
 (meow-setup)
 (meow-global-mode 1)
 (add-hook 'term-mode-hook 'meow--disable)
+
+(provide 'keybinds)

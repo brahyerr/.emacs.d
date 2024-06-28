@@ -6,3 +6,5 @@
   (setq mode-line-format
 	'("" mode-line-position)))
 (add-hook 'pdf-view-mode-hook 'my-pdf-view-mode-line-format)
+
+(provide 'pdf_local)

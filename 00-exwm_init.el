@@ -1,5 +1,5 @@
 (require 'exwm-config)
-(exwm-config-default)
+;; (exwm-config-default)
 (require 'exwm-systemtray)
 (exwm-systemtray-enable)
 ;;;; exwm keybindings
@@ -81,4 +81,4 @@
 
   (exwm-enable))
 
-(add-to-list 'load-path "./00-init.el")
+(load-file "~/.emacs.d/dot.d/00-init.el")

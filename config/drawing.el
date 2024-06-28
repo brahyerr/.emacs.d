@@ -11,3 +11,5 @@
 
 (autoload 'edraw-mode "edraw-mode")
 (add-to-list 'auto-mode-alist '("\\.edraw\\.svg$" . edraw-mode))
+
+(provide 'drawing)

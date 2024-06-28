@@ -20,7 +20,7 @@
 (set-fringe-mode 10)
 (menu-bar-mode -1)
 
-(setq undo-limit 300000)
+(setq undo-limit 3000000)
 ;; (setq-default left-margin-width 2
 ;; 	      right-margin-width 2)
 
@@ -65,12 +65,12 @@ If the new path's directories does not exist, create them."
 ;;   (add-hook mode #'disable-line-numbers-mode))
 
 ;; Background opacity
-(set-frame-parameter nil 'alpha-background 95)
-(add-to-list 'default-frame-alist '(alpha-background . 95))
+(set-frame-parameter nil 'alpha-background 90)
+(add-to-list 'default-frame-alist '(alpha-background . 90))
 
 ;; Frame margins
-(set-frame-parameter nil 'internal-border-width 16)
-(add-to-list 'default-frame-alist '(internal-border-width . 16))
+(set-frame-parameter nil 'internal-border-width 8)
+(add-to-list 'default-frame-alist '(internal-border-width . 8))
 
 ;; UI Enhancements
 (dolist (mode '(prog-mode-hook))
@@ -96,4 +96,38 @@ If the new path's directories does not exist, create them."
 ;; Save history
 (savehist-mode t)
 
-(add-to-list 'load-path "./config")
+;;;; load-path recursively ~/.emacs.d/dot.d
+;; (let* ((path (expand-file-name "dot.d" user-emacs-directory))
+;;          (local-pkgs (mapcar 'file-name-directory (directory-files-recursively path "\\.el$"))))
+;;     (if (file-accessible-directory-p path)
+;;         (mapc (apply-partially 'add-to-list 'load-path) local-pkgs)
+;;       (make-directory path :parents)))
+;; (unless (package-installed-p 'use-package)
+;;   (package-refresh-contents)
+;;   (package-install 'use-package))
+
+;;;; Enable configs
+(add-to-list 'load-path "~/.emacs.d/dot.d/config")
+(require 'fonts)
+(require 'development)
+(require 'completion)
+(require 'interface)
+(require 'keybinds)
+(require 'org_local)
+(require 'drawing)
+(require 'latex_local)
+(require 'shell_local)
+(require 'llm_local)
+(require 'pdf_local)
+(require 'media-player)
+;; (load-file "~/.emacs.d/dot.d/config/development.el")
+;; (load-file "~/.emacs.d/dot.d/config/completion.el")
+;; (load-file "~/.emacs.d/dot.d/config/interface.el")
+;; (load-file "~/.emacs.d/dot.d/config/keybinds.el")
+;; (load-file "~/.emacs.d/dot.d/config/org_local.el")
+;; (load-file "~/.emacs.d/dot.d/config/drawing.el")
+;; (load-file "~/.emacs.d/dot.d/config/latex_local.el")
+;; (load-file "~/.emacs.d/dot.d/config/shell_local.el")
+;; (load-file "~/.emacs.d/dot.d/config/llm_local.el")
+;; (load-file "~/.emacs.d/dot.d/config/pdf_local.el")
+;; (load-file "~/.emacs.d/dot.d/config/media-player.el")

@@ -1,3 +1,34 @@
+(use-package org-download
+  :after org
+  :defer nil
+  :custom
+  (org-download-method 'directory)
+  (org-download-image-dir "~/org/_resources")
+  (org-download-heading-lvl 0)
+  (org-download-timestamp "org_%Y%m%d-%H%M%S_")
+  ;; (org-image-actual-width 900)
+  (org-download-screenshot-method "wl-paste --type image/png > '%s'")
+  :bind
+  ("C-M-y" . org-download-screenshot)
+  :config
+  (require 'org-download))
+
+(use-package org-roam
+  :custom
+  (org-roam-directory (file-truename "/path/to/org-files/"))
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+         ("C-c n f" . org-roam-node-find)
+         ("C-c n g" . org-roam-graph)
+         ("C-c n i" . org-roam-node-insert)
+         ("C-c n c" . org-roam-capture)
+         ;; Dailies
+         ("C-c n j" . org-roam-dailies-capture-today))
+  :config
+  ;; If you're using a vertical completion framework, you might want a more informative completion interface
+  (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+  (org-roam-db-autosync-mode)
+  ;; If using org-roam-protocol
+  (require 'org-roam-protocol))
 ;; Pad and .org doc with whitespace
 (defun local/org-mode-visual-fill ()
   (setq visual-fill-column-width 200
@@ -69,3 +100,5 @@
 ;; Automatically render latex preview when cursor hovers over latex ;;
 (use-package org-fragtog)
 (add-hook 'org-mode-hook 'org-fragtog-mode)
+
+(provide 'org_local)

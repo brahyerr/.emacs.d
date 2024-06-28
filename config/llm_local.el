@@ -17,3 +17,5 @@
 	   :embedding-model "nomic-embed-text"
 	   :default-chat-non-standard-params '(("stop" . ("\n")))))
   (setopt ellama-naming-scheme 'ellama-generate-name-by-llm))
+
+(provide 'llm_local)

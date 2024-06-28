@@ -34,9 +34,8 @@
 
 ;;;; Make eglot faster by making eglot use emacs-lsp-booster
 (use-package eglot-booster
-  :ensure nil
   :after eglot
-  :load-path (expand-file-name "./eglot-booster.el")
+  :load-path ("~/.emacs.d/dot.d/config/eglot-booster.el")
   :config (eglot-booster-mode))
 
 ;;;; Eglot config
@@ -82,7 +81,7 @@
 (use-package flycheck)
 
 ;;;; eldoc settings
-(setq eldoc-idle-delay 0.2)
+(setq eldoc-idle-delay 0.3)
 ;; (defun local/eldoc-buffer-hook ()
 ;;   (progn
 ;;     (eldoc)
@@ -93,13 +92,13 @@
 ;; (add-hook 'html-mode-hook 'local/eldoc-buffer-hook)
 
 ;;;; Display scope info at the top
-(defun local/semantic-mode-hook ()
-  (semantic-mode)
-  (semantic-stickyfunc-mode))
+;; (defun local/semantic-mode-hook ()
+;;    (semantic-mode)
+;;    (semantic-stickyfunc-mode))
 
-(add-hook 'c++-mode-hook #'local/semantic-mode-hook)
-(add-hook 'c-mode-hook #'local/semantic-mode-hook)
-(add-hook 'html-mode-hook #'local/semantic-mode-hook)
+;; (add-hook 'c++-mode-hook #'local/semantic-mode-hook)
+;; (add-hook 'c-mode-hook #'local/semantic-mode-hook)
+;; (add-hook 'html-mode-hook #'local/semantic-mode-hook)
 
 ;;;; dumb-jump
 (setq dumb-jump-force-searcher 'rg)
@@ -107,9 +106,9 @@
 (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
 
 ;;;; rtags
-(use-package rtags
-  :config
-  (rtags-enable-standard-keybindings))
+;; (use-package rtags
+;;   :config
+;;   (rtags-enable-standard-keybindings))
 
 ;;;; envrc
 (use-package envrc
@@ -120,52 +119,4 @@
 ;;   (enlarge-window ( - 15 (window-body-height))))
 ;; (add-hook 'flymake-diagnostic-functions 'resize-help-window)
 
-;;;; Java LSP config ;;;;
-
-;; (use-package lsp-mode
-;;   :custom
-;;   (lsp-completion-provider :none) ;; we use Corfu!
-;;   :init
-;;   (defun my/lsp-mode-setup-completion ()
-;;     (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
-;;           '(flex))) ;; Configure flex
-;;   :config
-;;   (setq lsp-completion-enable-additional-text-edit nil
-;; 	lsp-headerline-breadcrumb-enable nil)
-;;   :hook
-;;   ((lsp-mode . lsp-enable-which-key-integration)
-;;    (lsp-completion-mode . my/lsp-mode-setup-completion)))
-;; (use-package lsp-ui)
-;; (use-package lsp-java
-;;   :config
-;;   (add-hook 'java-mode-hook 'lsp))
-;; (use-package dap-mode
-;;   :after
-;;   lsp-mode
-;;   :config
-;;   (dap-auto-configure-mode))
-;; (use-package dap-java
-;;   :ensure nil)
-;; ;; (use-package lsp-treemacs)
-
-;; ;; lsp-mode has a stupid aggressive indent that deletes code
-;; (setq lsp-enable-indentation nil
-;;       lsp-enable-on-type-formatting nil)
-
-;; ;; Set java indent
-;; (add-hook 'java-mode-hook
-;;           (lambda ()
-;;             (setq tab-width 8)))
-;; (setq lsp-java-autobuild-enabled nil)
-
-;; ;; Fix compile escape codes
-;; (add-hook 'compilation-filter-hook
-;; 	  (lambda () (ansi-color-apply-on-region (point-min) (point-max))))
-
-;; Add java-language-server from PATH
-;; (lsp-register-client
-;;  (make-lsp-client
-;;   :new-connection (lsp-stdio-connection "java-language-server")
-;;   :activation-fn (lsp-activate-on "java")
-;;   ;; :major-modes '(java-mode)
-;;   :server-id 'java-language-server))
+(provide 'development)
