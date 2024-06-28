@@ -249,7 +249,8 @@
 (use-package avy
   :demand t
   :bind (("C-c l" . avy-goto-line)  ; conflicts with org-agenda if set
-         ("s-j"   . avy-goto-char-timer)))
+         ;; ("s-j"   . avy-goto-char-timer))
+  ))
 
 (use-package embark
   :demand t
