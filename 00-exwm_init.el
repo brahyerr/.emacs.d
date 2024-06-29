@@ -1,11 +1,6 @@
 (add-to-list 'load-path "~/.emacs.d/dot.d/config/exwm")
 (setq use-dialog-box nil)
 
-;; (require 'exwm-config)
-;; (exwm-config-default)
-;; (require 'exwm-systemtray)
-;; (exwm-systemtray-enable)
-
 ;;;; Function definitions
 (defun local/run-in-background (command)
   (let ((command-parts (split-string command "[ ]+")))
@@ -37,8 +32,8 @@
   (interactive)
   (exwm-workspace-rename-buffer
    (concat exwm-class-name ": "
-	   (if (<= (length exwm-title) 40) exwm-title
-	     (concat (substring exwm-title 0 39) "...")))))
+	   (if (<= (length exwm-title) 30) exwm-title
+	     (concat (substring exwm-title 0 29) "...")))))
 
 ;;;; Ensure screen updates with xrandr will refresh EXWM frames
 (require 'exwm-randr)
@@ -53,6 +48,16 @@
 (start-process-shell-command "xrandr" nil "")
 
 (require 'app-launcher)  ; SebastienWae/app-launcher
+
+;; Unbind s-l - this needs to load before exwm
+(use-package desktop-environment
+  :demand t
+  :after exwm
+  :diminish desktop-environment-mode
+  :config
+  (progn
+    (unbind-key "s-l" desktop-environment-mode-map)
+    (desktop-environment-mode)))
 
 (use-package exwm
   :config
@@ -103,6 +108,15 @@
           ([?\s-l] . windmove-right)
           ([?\s-k] . windmove-up)
           ([?\s-j] . windmove-down)
+
+	  ;; Cycle windows
+          ([?\s-o] . other-window)
+	  ;; Kill current buffer
+	  ([s-backspace] . kill-current-buffer)
+
+	  ;; Move between buffers
+	  ([s-tab] . switch-to-next-buffer)
+	  ([S-s-iso-lefttab] . switch-to-prev-buffer)
 	  
 	  ;; Swap windows
           ([?\s-H] . windmove-swap-states-left)
@@ -110,6 +124,10 @@
           ([?\s-K] . windmove-swap-states-up)
           ([?\s-J] . windmove-swap-states-down)
 
+	  ;; Inc/dec text size
+	  ([?\s-=] text-scale-increase)
+	  ([?\s--] text-scale-decrease)
+	  
           ;; Launch applications via shell command
           ([?\s-&] . (lambda (command)
                        (interactive (list (read-shell-command "$ ")))

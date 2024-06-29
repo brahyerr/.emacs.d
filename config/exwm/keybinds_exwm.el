@@ -7,7 +7,6 @@
 
 (exwm-input-set-key (kbd "s-n") (lambda () (interactive) (local/dunstctl "history-pop")))
 (exwm-input-set-key (kbd "s-N") (lambda () (interactive) (local/dunstctl "close-all")))
-
-(keymap-global-set "C-s-l" 'desktop-environment-lock-screen)
+(exwm-input-set-key (kbd "C-s-l") 'desktop-environment-lock-screen)
 
 (provide 'keybinds_exwm)
