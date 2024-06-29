@@ -9,24 +9,7 @@
 (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 
 ;;;; colortheme
-(load-theme 'ef-winter t)
-;; (use-package hemisu-theme)
-;; (use-package color-theme-modern
-;;   :config
-;;   (load-theme 'billw t))
-
-;; (use-package color-theme-sanityinc-tomorrow)
-;; (color-theme-sanityinc-tomorrow--define-theme bright)
-;; (color-theme-sanityinc-tomorrow-bright)
-
-;; (use-package timu-caribbean-theme
-;;   :config
-;;   (load-theme 'timu-caribbean t))
-;; (customize-set-variable 'timu-caribbean-scale-org-document-title nil)
-;; (customize-set-variable 'timu-caribbean-scale-org-document-info nil)
-;; (customize-set-variable 'timu-caribbean-scale-org-level-1 nil)
-;; (customize-set-variable 'timu-caribbean-scale-org-level-2 nil)
-;; (customize-set-variable 'timu-caribbean-scale-org-level-3 nil)
+(load-theme 'ef-day t)
 
 ;; dirvish
 (use-package dirvish
@@ -73,8 +56,20 @@
    ("M-j" . dirvish-fd-jump)))
 
 ;;;; modeline
-(setq sml/theme 'dark)
-(sml/setup)
+(doom-modeline-mode t)
+;; (use-package simple-modeline
+;;   :hook (after-init . simple-modeline-mode))
+;; (setq sml/no-confirm-load-theme t
+;;       sml/shorten-directory t
+;;       sml/shorten-modes t)
+;; (setq sml/theme 'respectful)
+;; (sml/setup)
+
+;;;; mini modeline
+;; (use-package mini-modeline
+;;   :after smart-mode-line
+;;   :config
+;;   (mini-modeline-mode t))
 
 ;;;; magit
 (use-package magit

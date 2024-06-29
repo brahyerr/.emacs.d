@@ -1,29 +1,10 @@
-(require 'exwm-config)
+(add-to-list 'load-path "~/.emacs.d/dot.d/config/exwm")
+(setq use-dialog-box nil)
+
+;; (require 'exwm-config)
 ;; (exwm-config-default)
-(require 'exwm-systemtray)
-(exwm-systemtray-enable)
-
-;;;; the rest
-
-;; Ensure screen updates with xrandr will refresh EXWM frames
-(require 'exwm-randr)
-(exwm-randr-enable)
-;; Set the screen resolution
-(start-process-shell-command "xrandr" nil "")
-
-(defun local/set-wallpaper ()
-  (interactive)
-  (start-process-shell-command
-   "feh" nil "feh --bg-tile ~/Pictures/cat_tile.png"))
-;; Set the wallpaper after setting screen resolution
-(local/set-wallpaper)
-
-;; Load the system tray before exwm-init
-(require 'exwm-systemtray)
-(exwm-systemtray-enable)
-
-(defun local/exwm-update-class ()
-  (exwm-workspace-rename-buffer exwm-class-name))
+;; (require 'exwm-systemtray)
+;; (exwm-systemtray-enable)
 
 ;;;; Function definitions
 (defun local/run-in-background (command)
@@ -34,8 +15,44 @@
   ;; Make workspace 1 be the one where we land at startup
   (exwm-workspace-switch-create 1)
   ;; Launch apps that will run in the background
-  (local/run-in-background "nm-applet")
+  ;; (local/run-in-background "nm-applet")
   (local/run-in-background "dunst"))
+
+(defun local/set-wallpaper ()
+  (interactive)
+  (start-process-shell-command
+   "feh" nil "feh --bg-tile ~/Pictures/cat_tile.png"))
+;; Set the wallpaper after setting screen resolution
+(local/set-wallpaper)
+
+;; Load the system tray before exwm-init
+(require 'exwm-systemtray)
+(setq exwm-systemtray-height 16)
+(exwm-systemtray-enable)
+
+(defun local/exwm-update-class ()
+  (exwm-workspace-rename-buffer exwm-class-name))
+
+(defun local/exwm-rename-buffer ()
+  (interactive)
+  (exwm-workspace-rename-buffer
+   (concat exwm-class-name ": "
+	   (if (<= (length exwm-title) 40) exwm-title
+	     (concat (substring exwm-title 0 39) "...")))))
+
+;;;; Ensure screen updates with xrandr will refresh EXWM frames
+(require 'exwm-randr)
+(require 'display)
+(exwm-randr-enable)
+
+;; React to display connectivity changes, do initial display update
+(add-hook 'exwm-randr-screen-change-hook #'local/update-displays)
+(local/update-displays)
+
+;; Set the screen resolution
+(start-process-shell-command "xrandr" nil "")
+
+(require 'app-launcher)  ; SebastienWae/app-launcher
 
 (use-package exwm
   :config
@@ -43,9 +60,13 @@
   (setq exwm-workspace-number 5)
 
   ;; When window "class" updates, use it to set the buffer name
-  (add-hook 'exwm-update-class-hook #'local/exwm-update-class)
+  ;; (add-hook 'exwm-update-class-hook #'local/exwm-update-class)
+  (add-hook 'exwm-update-class-hook #'local/exwm-rename-buffer)
+  (add-hook 'exwm-update-title-hook #'local/exwm-rename-buffer)
   ;; When EXWM finishes initialization, do some extra setup
   (add-hook 'exwm-init-hook #'local/exwm-init-hook)
+  ;; exwm-modeline (make sure you have it installed)
+  (add-hook 'exwm-init-hook #'exwm-modeline-mode)
 
   ;; These keys should always pass through to Emacs
   (setq exwm-input-prefix-keys
@@ -59,6 +80,7 @@
       ?\C-\M-j  ;; Buffer list
       ?\C-\ ))  ;; Ctrl+Space
 
+  
   ;; Ctrl+Q will enable the next key to be sent directly
   (define-key exwm-mode-map [?\C-q] 'exwm-input-send-next-key)
 
@@ -69,30 +91,25 @@
           ;; Reset to line-mode (C-c C-k switches to char-mode via exwm-input-release-keyboard)
           ([?\s-r] . exwm-reset)
 
+	  ;; Launch apps
+	  ([?\s-a] . app-launcher-run-app)
+	  
           ;; Move between windows
           ([s-left] . windmove-left)
           ([s-right] . windmove-right)
           ([s-up] . windmove-up)
           ([s-down] . windmove-down)
-          ([s-h] . windmove-left)
-          ([s-l] . windmove-right)
-          ([s-k] . windmove-up)
-          ([s-j] . windmove-down)
-
-	  ;; Swap windows
-          ([s-h] . windmove-swap-states-left)
-          ([s-l] . windmove-swap-states-right)
-          ([s-k] . windmove-swap-states-up)
-          ([s-j] . windmove-swap-states-down)
-
-	  ;; Inc/dec text scale
-	  ([s-=] . text-scale-increase)
-	  ([s--] . text-scale-decrease)
-
-	  ;; Next/prev buffer
-	  ([s-\[] . next-buffer)
-	  ([s-\]] . previous-buffer)
+          ([?\s-h] . windmove-left)
+          ([?\s-l] . windmove-right)
+          ([?\s-k] . windmove-up)
+          ([?\s-j] . windmove-down)
 	  
+	  ;; Swap windows
+          ([?\s-H] . windmove-swap-states-left)
+          ([?\s-L] . windmove-swap-states-right)
+          ([?\s-K] . windmove-swap-states-up)
+          ([?\s-J] . windmove-swap-states-down)
+
           ;; Launch applications via shell command
           ([?\s-&] . (lambda (command)
                        (interactive (list (read-shell-command "$ ")))
@@ -109,16 +126,14 @@
                           (exwm-workspace-switch-create ,i))))
                     (number-sequence 0 9))))
 
-  ;; Focus follows mouse
-  (setq mouse-autoselect-window t
-	focus-follows-mouse t)
-  
   (exwm-enable))
 
-(add-to-list 'load-path "~/.emacs.d/dot.d/config/exwm")
-(require 'keybinds_exwm)
-(require 'display)
+  ;; Focus follows mouse
+  (setq mouse-autoselect-window t)
+  (setq focus-follows-mouse t)
+
 (require 'interface_exwm)
 (require 'desktop)
+(require 'keybinds_exwm)
 
 (load-file "~/.emacs.d/dot.d/00-init.el")

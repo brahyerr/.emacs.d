@@ -10,8 +10,4 @@
            (string-trim (shell-command-to-string "autorandr --current")))
   (local/set-wallpaper))
 
-;; React to display connectivity changes, do initial display update
-(add-hook 'exwm-randr-screen-change-hook #'local/update-displays)
-(local/update-displays)
-
 (provide 'display)

@@ -1,3 +1,5 @@
+;; Global keys should be set in the exwm init file
+
 (exwm-input-set-key (kbd "s-f") 'exwm-layout-toggle-fullscreen)
 
 (defun local/dunstctl (command)
@@ -5,5 +7,7 @@
 
 (exwm-input-set-key (kbd "s-n") (lambda () (interactive) (local/dunstctl "history-pop")))
 (exwm-input-set-key (kbd "s-N") (lambda () (interactive) (local/dunstctl "close-all")))
+
+(keymap-global-set "C-s-l" 'desktop-environment-lock-screen)
 
 (provide 'keybinds_exwm)
