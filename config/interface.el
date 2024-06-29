@@ -55,6 +55,21 @@
    ("M-e" . dirvish-emerge-menu)
    ("M-j" . dirvish-fd-jump)))
 
+;;; use openwith to open files externally
+(use-package openwith
+  :config
+  (setq openwith-associations
+        (cond
+         ((string-equal system-type "darwin")
+          '(("\\.\\(dmg\\|doc\\|docs\\|xls\\|xlsx\\)$"
+             "open" (file))
+            ("\\.\\(mp4\\|mp3\\|webm\\|avi\\|flv\\|mov\\)$"
+             "open" ("-a" "VLC" file))))
+         ((string-equal system-type "gnu/linux")
+          '(("\\.\\(mp4\\|mp3\\|mkv\\|webm\\|avi\\|flv\\|mov\\)$"
+             "xdg-open" (file))))))
+  (openwith-mode 1))
+
 ;;;; modeline
 (doom-modeline-mode t)
 ;; (use-package simple-modeline

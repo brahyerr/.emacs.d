@@ -1,5 +1,5 @@
 ;;;; Which workspaces should be on which display
-(setq exwm-randr-workspace-monitor-plist '(2 "Virtual-2" 3 "Virtual-2"))
+(setq exwm-randr-workspace-monitor-plist '(9 "Virtual-2" 0 "Virtual-2"))
 
 (setq exwm-workspace-warp-cursor t)
 

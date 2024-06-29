@@ -1,5 +1,5 @@
 ;; Load exwm if it is present
-(if (package-installed-p 'exwm) (load-file "~/.emacs.d/dot.d/00-exwm_init.el"))
+(if (package-installed-p 'exwm) (load-file "~/.emacs.d/dot.d/init-exwm.el"))
 
 ;; Startup speed, annoyance suppression
 (setq gc-cons-threshold 10000000)

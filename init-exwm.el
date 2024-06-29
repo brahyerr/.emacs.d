@@ -111,12 +111,15 @@
 
 	  ;; Cycle windows
           ([?\s-o] . other-window)
-	  ;; Kill current buffer
+	  ;; Kill current buffer, window
+	  ([?\s-\\] . delete-window)
 	  ([s-backspace] . kill-current-buffer)
+	  ([S-s-backspace] . kill-buffer-and-window)
 
 	  ;; Move between buffers
-	  ([s-tab] . switch-to-next-buffer)
-	  ([S-s-iso-lefttab] . switch-to-prev-buffer)
+	  ([s-tab] . switch-to-buffer)
+	  ([M-tab] . switch-to-next-buffer)
+	  ([M-S-iso-lefttab] . switch-to-prev-buffer)
 	  
 	  ;; Swap windows
           ([?\s-H] . windmove-swap-states-left)
@@ -125,8 +128,8 @@
           ([?\s-J] . windmove-swap-states-down)
 
 	  ;; Inc/dec text size
-	  ([?\s-=] text-scale-increase)
-	  ([?\s--] text-scale-decrease)
+	  ([?\s-=] . text-scale-increase)
+	  ([?\s--] . text-scale-decrease)
 	  
           ;; Launch applications via shell command
           ([?\s-&] . (lambda (command)
@@ -153,5 +156,3 @@
 (require 'interface_exwm)
 (require 'desktop)
 (require 'keybinds_exwm)
-
-(load-file "~/.emacs.d/dot.d/00-init.el")
