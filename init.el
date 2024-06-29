@@ -1,5 +1,5 @@
 ;; Load exwm if it is present
-(if (package-installed-p 'exwm) (load-file "~/.emacs.d/dot.d/init-exwm.el"))
+(if (package-installed-p 'exwm) (load-file (expand-file-name "init-exwm.el" user-emacs-directory)))
 
 ;; Startup speed, annoyance suppression
 (setq gc-cons-threshold 10000000)
@@ -109,7 +109,7 @@ If the new path's directories does not exist, create them."
 ;;   (package-install 'use-package))
 
 ;;;; Enable configs
-(add-to-list 'load-path "~/.emacs.d/dot.d/config")
+(add-to-list 'load-path (expand-file-name "config" user-emacs-directory))
 (require 'fonts)
 (require 'development)
 (require 'completion)

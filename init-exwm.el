@@ -1,4 +1,4 @@
-(add-to-list 'load-path "~/.emacs.d/dot.d/config/exwm")
+(add-to-list 'load-path (expand-file-name "config/exwm" user-emacs-directory))
 (setq use-dialog-box nil)
 
 ;;;; Function definitions
