@@ -19,4 +19,15 @@
   (interactive)
   (start-process-shell-command "notify-send" nil "notify-send \"DUNST_COMMAND_TOGGLE\""))
 
+;;;; filechooser + vertico integreation
+(require 'filechooser)
+(with-eval-after-load 'filechooser
+  (defun +filechooser-multiple-vertico-tab ()
+    (interactive)
+    (vertico-insert)
+    (unless (file-directory-p (minibuffer-contents))
+      (filechooser-multiple-continue)))
+  (define-key filechooser-multiple-selection-map
+              (kbd "TAB") #'+filechooser-multiple-vertico-tab))
+
 (provide 'desktop)
