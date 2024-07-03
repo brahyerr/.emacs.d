@@ -114,9 +114,33 @@
 (use-package envrc
   :hook (after-init . envrc-global-mode))
 
+;;;; TRAMP
+(defun connect-desktop ()
+  (interactive)
+  (dired "/sshx:v_v@nix-STATION:/"))
+
+(defun connect-laptop ()
+  (interactive)
+  (dired "/sshx:v_v@nix-GO:/"))
+
+(defun connect-homelab ()
+  (interactive)
+  (dired "/sshx:v_v@nix-TOWER:/"))
+
 ;; (defun resize-help-window ()
 ;;   (interactive)
 ;;   (enlarge-window ( - 15 (window-body-height))))
 ;; (add-hook 'flymake-diagnostic-functions 'resize-help-window)
+
+;;;; Fast scroll
+(load-file (expand-file-name "config/fast-scroll.el" user-emacs-directory))
+(require 'fast-scroll)
+;; If you would like to turn on/off other modes, like flycheck, add
+;; your own hooks.
+(add-hook 'fast-scroll-start-hook (lambda () (flycheck-mode -1)))
+(add-hook 'fast-scroll-end-hook (lambda () (flycheck-mode 1)))
+(fast-scroll-config)
+(fast-scroll-mode 1)
+(setq fast-scroll-throttle 0.5)
 
 (provide 'development)
