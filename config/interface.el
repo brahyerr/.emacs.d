@@ -57,19 +57,19 @@
 
 ;;;; use openwith to open files externally
 ; TODO: Look into configuring dired-launch as an alternative
-(use-package openwith
-  :config
-  (setq openwith-associations
-        (cond
-         ((string-equal system-type "darwin")
-          '(("\\.\\(dmg\\|doc\\|docs\\|xls\\|xlsx\\)$"
-             "open" (file))
-            ("\\.\\(mp4\\|mp3\\|mkv\\|webm\\|avi\\|flv\\|mov\\)$"
-             "open" ("-a" "VLC" file))))
-         ((string-equal system-type "gnu/linux")
-          '(("\\.\\(mp4\\|mp3\\|mkv\\|webm\\|avi\\|flv\\|mov\\)$"
-             "xdg-open" (file))))))
-  (openwith-mode 1))
+;; (use-package openwith
+;;   :config
+;;   (setq openwith-associations
+;;         (cond
+;;          ((string-equal system-type "darwin")
+;;           '(("\\.\\(dmg\\|doc\\|docs\\|xls\\|xlsx\\)$"
+;;              "open" (file))
+;;             ("\\.\\(mp4\\|mp3\\|mkv\\|webm\\|avi\\|flv\\|mov\\)$"
+;;              "open" ("-a" "VLC" file))))
+;;          ((string-equal system-type "gnu/linux")
+;;           '(("\\.\\(mp4\\|mp3\\|mkv\\|webm\\|avi\\|flv\\|mov\\)$"
+;;              "xdg-open" (file))))))
+;;   (openwith-mode 1))
 
 ; https://emacs.stackexchange.com/questions/21796/dired-alternative-to-openwith-how-to-open-file-per-extension
 ; If using mu4e, openwith might intefere with it. Uncomment the below if it's issue
