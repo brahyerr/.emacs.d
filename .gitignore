@@ -1,6 +1,7 @@
 *
 !init*.el
 !config
+!config/**
 .+~*
 \#.*\#
 .\#.*\#
