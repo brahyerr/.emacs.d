@@ -8,6 +8,7 @@
 (keymap-global-set "C-'" 'window-swap-states)
 (keymap-global-set "M-n" 'forward-word)
 (keymap-global-set "M-p" 'backward-word)
+(keymap-global-set "C-c r" 'consult-ripgrep)
 
 ;; override local keybinds
 (add-hook 'compilation-mode-hook
