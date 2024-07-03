@@ -2,7 +2,6 @@
 (setq exwm-randr-workspace-monitor-plist
       (pcase (system-name)
 	("laptop" '(0 "Virtual-2" 9 "Virtual-2"))))
-(exwm-randr-refresh)
 
 (setq exwm-workspace-warp-cursor t)
 

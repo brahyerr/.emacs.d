@@ -37,15 +37,7 @@
 
 ;;;; Ensure screen updates with xrandr will refresh EXWM frames
 (require 'exwm-randr)
-(require 'display)
 (exwm-randr-enable)
-
-;; React to display connectivity changes, do initial display update
-(add-hook 'exwm-randr-screen-change-hook #'local/update-displays)
-(local/update-displays)
-
-;; Set the screen resolution
-(start-process-shell-command "xrandr" nil "")
 
 (require 'app-launcher)  ; SebastienWae/app-launcher
 
@@ -63,6 +55,8 @@
   :config
   ;; Set the default number of workspaces
   (setq exwm-workspace-number 5)
+  ;; Do not ask to replace existing window manager (for nested emacs)
+  (setq exwm-replace nil)
 
   ;; When window "class" updates, use it to set the buffer name
   ;; (add-hook 'exwm-update-class-hook #'local/exwm-update-class)
@@ -95,6 +89,7 @@
         `(
           ;; Reset to line-mode (C-c C-k switches to char-mode via exwm-input-release-keyboard)
           ([?\s-r] . exwm-reset)
+	  ([?\s-e] . exwm-input-release-keyboard)
 
 	  ;; Launch apps
 	  ([?\s-a] . app-launcher-run-app)
@@ -145,13 +140,21 @@
                         (lambda ()
                           (interactive)
                           (exwm-workspace-switch-create ,i))))
-                    (number-sequence 1 5))))
+                    (number-sequence 0 5))))
 
   (exwm-enable))
 
-  ;; Focus follows mouse
-  (setq mouse-autoselect-window t)
-  (setq focus-follows-mouse t)
+;; React to display connectivity changes, do initial display update
+(require 'display)
+(add-hook 'exwm-randr-screen-change-hook #'local/update-displays)
+(local/update-displays)
+
+;; Set the screen resolution
+(start-process-shell-command "xrandr" nil "")
+
+;; Focus follows mouse
+(setq mouse-autoselect-window t)
+(setq focus-follows-mouse t)
 
 (require 'interface_exwm)
 (require 'desktop)
