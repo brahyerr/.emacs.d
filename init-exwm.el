@@ -32,8 +32,8 @@
   (interactive)
   (exwm-workspace-rename-buffer
    (concat exwm-class-name ": "
-	   (if (<= (length exwm-title) 30) exwm-title
-	     (concat (substring exwm-title 0 29) "...")))))
+	   (if (<= (length exwm-title) 25) exwm-title
+	     (concat (substring exwm-title 0 24) "...")))))
 
 ;;;; Ensure screen updates with xrandr will refresh EXWM frames
 (require 'exwm-randr)
@@ -145,7 +145,7 @@
                         (lambda ()
                           (interactive)
                           (exwm-workspace-switch-create ,i))))
-                    (number-sequence 0 9))))
+                    (number-sequence 1 5))))
 
   (exwm-enable))
 
