@@ -6,17 +6,34 @@
   (let ((command-parts (split-string command "[ ]+")))
     (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
 
+;; Start lemonbar
+(defvar local/lemonbar-process nil
+  "Holds the process of the running lemonbar instance, if any")
+
+(defun local/kill-panel ()
+  (interactive)
+  (when local/lemonbar-process
+    (ignore-errors
+      (kill-process local/lemonbar-process)))
+  (setq local/lemonbar-process nil))
+
+(defun local/start-panel ()
+  (interactive)
+  (local/kill-panel)
+  (setq local/lemonbar-process (start-process-shell-command "lemonbar" nil (expand-file-name "config/exwm/lemonbar/lemonbar.sh" user-emacs-directory))))
+
 (defun local/exwm-init-hook ()
   ;; Make workspace 1 be the one where we land at startup
   (exwm-workspace-switch-create 1)
   ;; Launch apps that will run in the background
   ;; (local/run-in-background "nm-applet")
-  (local/run-in-background "dunst"))
+  (local/run-in-background "dunst")
+  (local/start-panel))
 
 (defun local/set-wallpaper ()
   (interactive)
   (start-process-shell-command
-   "feh" nil "feh --bg-tile ~/Pictures/cat_tile.png"))
+   "feh" nil "feh --bg-center --image-bg 'white' ~/Pictures/gimmick.jpg"))
 ;; Set the wallpaper after setting screen resolution
 (local/set-wallpaper)
 
@@ -103,6 +120,10 @@
           ([?\s-l] . windmove-right)
           ([?\s-k] . windmove-up)
           ([?\s-j] . windmove-down)
+
+	  ;; Tabs
+          ([?\s-\[] . tab-previous)
+          ([?\s-\]] . tab-next)
 
 	  ;; Cycle windows
           ([?\s-o] . other-window)
