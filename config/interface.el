@@ -9,7 +9,7 @@
 (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 
 ;;;; colortheme
-(load-theme 'ef-day t)
+(load-theme 'ef-spring t)
 
 ;; dirvish
 (use-package dirvish

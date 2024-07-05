@@ -1,14 +1,14 @@
 ;; Set fonts for emacs
 (setq-default line-spacing 2)
-(set-face-attribute 'default nil :height 105)
-(set-face-attribute 'tooltip nil :height 105)
+(set-face-attribute 'default nil :height 110 :weight 'medium)
+(set-face-attribute 'tooltip nil :height 110 :weight 'medium)
 
 ;; Set the variable pitch face
-(set-face-attribute 'variable-pitch nil :height 105)
+(set-face-attribute 'variable-pitch nil :height 110 :weight 'medium)
 
 (defun set-fonts-for-emacsclient ()
   ;; Set the variable pitch face
-  (set-face-attribute 'variable-pitch nil :height 105))
+  (set-face-attribute 'variable-pitch nil :height 110 :weight 'medium))
 (add-hook 'server-after-make-frame-hook 'set-fonts-for-emacsclient)
 
 ;;;; Set font settings for org-mode ;;;;

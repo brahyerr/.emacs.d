@@ -9,6 +9,7 @@
 (keymap-global-set "M-n" 'forward-word)
 (keymap-global-set "M-p" 'backward-word)
 (keymap-global-set "C-c r" 'consult-ripgrep)
+(keymap-global-set "C-c g" 'magit)
 
 ;; override local keybinds
 (add-hook 'compilation-mode-hook
@@ -124,8 +125,12 @@
    '("s" . "C-s")
    ; find-file
    '("f" . "C-x C-f")
+   ; tabs
+   '("t" . "C-x t")
    ; Window and buffer management
+   '("b" . switch-to-buffer)
    '("w" . kill-buffer)
+   '("W" . kill-current-buffer)
    '("d" . next-window-any-frame)
    '("e" . previous-window-any-frame)
    '("q" . delete-window)
