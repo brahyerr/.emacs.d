@@ -7,6 +7,9 @@ logo="\uf17c"
 
 while read -r line; do
     case $line in
+        WIN*)
+            win="EXWM: ${line#???}"
+            ;;
         DAT*)
             date="${line#???}"
             ;;
@@ -16,6 +19,12 @@ while read -r line; do
         VOL*)
             volume="VOL: ${line#???}"
             ;;
+        CPU*)
+            cpu="CPU: ${line#???}"
+            ;;
+        LOD*)
+            lod="LOD: ${line#???}"
+            ;;
         MEM*)
             memory="MEM: ${line#???}"
             ;;
@@ -24,6 +33,5 @@ while read -r line; do
             ;;
         *) ;;
     esac
-
-    echo -e "%{r}%{B${color_hl2}}    ${date}    ${brightness}    ${volume}    ${memory}    ${battery}    %{B-}"
+    echo -e "%{l}%{B${color_hl2}}    ${win}    ${date}    %{B-}%{r}%{B${color_hl2}}    ${brightness}    ${volume}    ${cpu}    ${lod}    ${memory}    ${battery}    %{B-}"
 done

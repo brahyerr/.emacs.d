@@ -22,6 +22,23 @@
   (local/kill-panel)
   (setq local/lemonbar-process (start-process-shell-command "lemonbar" nil (expand-file-name "config/exwm/lemonbar/lemonbar.sh" user-emacs-directory))))
 
+;; Get exwm workspaces to lemonbar, thanks to u/franburstall
+(defun local/exwm-workspace-list ()
+  "Return a lemonbar string showing workspace list."
+  (let* ((num (exwm-workspace--count))
+     (sequence (number-sequence 0 (1- num)))
+     (curr (exwm-workspace--position exwm-workspace--current)))
+    (mapconcat (lambda (i)
+         (format (if (= i curr) "[%%{F#9d5e7a}%d%%{F-}] " "%d ") i))
+           sequence "")
+    ))
+
+(defun local/exwm-report-workspaces-to-lemonbar ()
+  (with-temp-file "/run/user/1000/lemonbar.fifo"
+    (insert (format "WIN%s\n" (local/exwm-workspace-list)))))
+(add-hook 'exwm-workspace-switch-hook #'local/exwm-report-workspaces-to-lemonbar)
+(add-hook 'exwm-init-hook #'local/exwm-report-workspaces-to-lemonbar)
+
 (defun local/exwm-init-hook ()
   ;; Make workspace 1 be the one where we land at startup
   (exwm-workspace-switch-create 1)
@@ -71,7 +88,7 @@
 (use-package exwm
   :config
   ;; Set the default number of workspaces
-  (setq exwm-workspace-number 5)
+  (setq exwm-workspace-number 4)
   ;; Do not ask to replace existing window manager (for nested emacs)
   (setq exwm-replace nil)
 
@@ -136,6 +153,7 @@
 	  ([s-tab] . switch-to-buffer)
 	  ([M-tab] . switch-to-next-buffer)
 	  ([M-S-iso-lefttab] . switch-to-prev-buffer)
+	  ([M-iso-lefttab] . switch-to-prev-buffer) ; sometimes the previous bind doesnt work for a keyboard
 	  
 	  ;; Swap windows
           ([?\s-H] . windmove-swap-states-left)
@@ -161,7 +179,7 @@
                         (lambda ()
                           (interactive)
                           (exwm-workspace-switch-create ,i))))
-                    (number-sequence 0 5))))
+                    (number-sequence 0 9))))
 
   (exwm-enable))
 

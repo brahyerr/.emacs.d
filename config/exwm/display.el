@@ -1,7 +1,7 @@
 ;;;; Which workspaces should be on which display
 (setq exwm-randr-workspace-monitor-plist
       (pcase (system-name)
-	("laptop" '(0 "Virtual-2" 9 "Virtual-2"))))
+	("nix-GO" '(8 "HDMI-A-0" 9 "HDMI-A-0"))))
 
 (setq exwm-workspace-warp-cursor t)
 
