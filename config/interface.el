@@ -57,33 +57,40 @@
 
 ;;;; use openwith to open files externally
 ; TODO: Look into configuring dired-launch as an alternative
-;; (use-package openwith
-;;   :config
-;;   (setq openwith-associations
-;;         (cond
-;;          ((string-equal system-type "darwin")
-;;           '(("\\.\\(dmg\\|doc\\|docs\\|xls\\|xlsx\\)$"
-;;              "open" (file))
-;;             ("\\.\\(mp4\\|mp3\\|mkv\\|webm\\|avi\\|flv\\|mov\\)$"
-;;              "open" ("-a" "VLC" file))))
-;;          ((string-equal system-type "gnu/linux")
-;;           '(("\\.\\(mp4\\|mp3\\|mkv\\|webm\\|avi\\|flv\\|mov\\)$"
-;;              "xdg-open" (file))))))
-;;   (openwith-mode 1))
+(use-package openwith
+  :config
+  (setq openwith-associations
+        (cond
+         ((string-equal system-type "darwin")
+          '(("\\.\\(dmg\\|doc\\|docs\\|xls\\|xlsx\\)$"
+             "open" (file))
+            ("\\.\\(mp4\\|mp3\\|mkv\\|webm\\|avi\\|flv\\|mov\\)$"
+             "open" ("-a" "VLC" file))))
+         ;; ((string-equal system-type "gnu/linux")
+         ;;  '(("\\.\\(dmg\\|doc\\|docs\\|docx\\|ppt\\|pptx\\|xls\\|xlsx\\)$"
+         ;;     "xdg-open" (file))))
+	 ))
+  (openwith-mode 1))
 
 ; https://emacs.stackexchange.com/questions/21796/dired-alternative-to-openwith-how-to-open-file-per-extension
 ; If using mu4e, openwith might intefere with it. Uncomment the below if it's issue
 ;; (add-to-list 'mm-inhibit-file-name-handlers 'openwith-file-handler)
 
 ;;;; modeline
-(doom-modeline-mode t)
-;; (use-package simple-modeline
-;;   :hook (after-init . simple-modeline-mode))
-;; (setq sml/no-confirm-load-theme t
-;;       sml/shorten-directory t
-;;       sml/shorten-modes t)
-;; (setq sml/theme 'respectful)
-;; (sml/setup)
+(use-package doom-modeline-now-playing
+  :config
+  (doom-modeline-now-playing-timer))
+(use-package doom-modeline
+  :after (doom-modeline-now-playing)
+  :config
+  (progn
+    (doom-modeline-def-modeline 'local-modeline
+      '(bar matches buffer-info remote-host buffer-position parrot selection-info)
+      '(now-playing misc-info minor-modes input-method buffer-encoding major-mode process vcs check))
+    (add-hook 'doom-modeline-mode-hook
+              (lambda ()
+		(doom-modeline-set-modeline 'local-modeline 'default)))
+    (doom-modeline-mode t)))
 
 ;;;; mini modeline
 ;; (use-package mini-modeline

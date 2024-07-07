@@ -35,7 +35,7 @@
 ;;;; Make eglot faster by making eglot use emacs-lsp-booster
 (use-package eglot-booster
   :after eglot
-  :load-path ("~/.emacs.d/dot.d/config/eglot-booster.el")
+  :load-path ("vendor/eglot-booster")
   :config (eglot-booster-mode))
 
 ;;;; Eglot config
@@ -149,14 +149,27 @@
 ;; (add-hook 'flymake-diagnostic-functions 'resize-help-window)
 
 ;;;; Fast scroll
-(load-file (expand-file-name "config/fast-scroll.el" user-emacs-directory))
-(require 'fast-scroll)
+(use-package fast-scroll
+  :load-path
+  ("vendor/fast-scroll")
+  :hook
+  ((fast-scroll-start . (lambda () (flycheck-mode -1)))
+   (fast-scroll-end . (lambda () (flycheck-mode -1))))
+  :config
+  (progn
+    (fast-scroll-config)
+    (fast-scroll-mode 1)
+    (setq fast-scroll-throttle 0.5))
+  )
+	    
+;; (load-file (expand-file-name "config/fast-scroll.el" user-emacs-directory))
+;; (require 'fast-scroll)
 ;; If you would like to turn on/off other modes, like flycheck, add
 ;; your own hooks.
-(add-hook 'fast-scroll-start-hook (lambda () (flycheck-mode -1)))
-(add-hook 'fast-scroll-end-hook (lambda () (flycheck-mode 1)))
-(fast-scroll-config)
-(fast-scroll-mode 1)
-(setq fast-scroll-throttle 0.5)
+;; (add-hook 'fast-scroll-start-hook (lambda () (flycheck-mode -1)))
+;; (add-hook 'fast-scroll-end-hook (lambda () (flycheck-mode 1)))
+;; (fast-scroll-config)
+;; (fast-scroll-mode 1)
+;; (setq fast-scroll-throttle 0.5)
 
 (provide 'development)
