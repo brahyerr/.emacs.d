@@ -45,9 +45,6 @@
   ;; Enable recursive minibuffers
   (setq enable-recursive-minibuffers t))
 
-;; Corfu is enabled in flake.nix.
-;; Corfu will cause the flake to not build if defined with use-package.
-
 (setq corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
 (setq corfu-auto t)                 ;; Enable auto completion
   ;; (corfu-separator ?\s)          ;; Orderless field separator
@@ -58,17 +55,8 @@
   ;; (corfu-on-exact-match nil)     ;; Configure handling of exact matches
   ;; (corfu-scroll-margin 5)        ;; Use scroll margin
 
-  ;; Enable Corfu only for certain modes.
-  ;; :hook ((prog-mode . corfu-mode)
-  ;;        (shell-mode . corfu-mode)
-  ;;        (eshell-mode . corfu-mode))
-
-  ;; Recommended: Enable Corfu globally.
-  ;; This is recommended since Dabbrev can be used globally (M-/).
-;; See also `global-corfu-modes'.
 ;; (keymap-global-set "M-n" 'corfu-next)
 ;; (keymap-global-set "M-p" 'corfu-previous)
-
 (global-corfu-mode t)
 
 ;; Enable corfu popupinfo
@@ -85,6 +73,15 @@
 	)
     (corfu-mode 1)))
 (add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer)
+
+;;; Icons for completion
+(use-package kind-icon
+  :after corfu
+  ;:custom
+  ; (kind-icon-blend-background t)
+  ; (kind-icon-default-face 'corfu-default) ; only needed with blend-background
+  :config
+  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
 ;; A few more useful configurations...
 (use-package emacs
