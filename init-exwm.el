@@ -50,7 +50,7 @@
 (defun local/set-wallpaper ()
   (interactive)
   (start-process-shell-command
-   "feh" nil "feh --bg-center --image-bg 'white' ~/Pictures/gimmick.jpg"))
+   "feh" nil (format "feh --bg-center --image-bg 'white' %s" (expand-file-name "vendor/papes/gimmick.jpg" user-emacs-directory))))
 ;; Set the wallpaper after setting screen resolution
 (local/set-wallpaper)
 

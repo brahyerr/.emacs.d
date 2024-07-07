@@ -10,3 +10,6 @@
 [submodule "vendor/eglot-booster"]
 	path = vendor/eglot-booster
 	url = https://github.com/jdtsmith/eglot-booster.git
+[submodule "vendor/papes"]
+	path = vendor/papes
+	url = https://github.com/brahyerr/papes.git
