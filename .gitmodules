@@ -1,0 +1,12 @@
+[submodule "vendor/lambda-line"]
+	path = vendor/lambda-line
+	url = https://github.com/Lambda-Emacs/lambda-line
+[submodule "vendor/fast-scroll"]
+	path = vendor/fast-scroll
+	url = https://github.com/ahungry/fast-scroll.git
+[submodule "vendor/ready-player"]
+	path = vendor/ready-player
+	url = https://github.com/xenodium/ready-player.git
+[submodule "vendor/eglot-booster"]
+	path = vendor/eglot-booster
+	url = https://github.com/jdtsmith/eglot-booster.git
