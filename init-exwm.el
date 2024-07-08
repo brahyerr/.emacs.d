@@ -1,67 +1,17 @@
 (add-to-list 'load-path (expand-file-name "config/exwm" user-emacs-directory))
 (setq use-dialog-box nil)
 
+(defcustom local/statusbar-fifo-path "/run/user/1000/lemonbar.fifo"
+  "Path to statusbar fifo."
+  :type 'string)
+
 ;;;; Function definitions
 (defun local/run-in-background (command)
   (let ((command-parts (split-string command "[ ]+")))
     (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
 
 ;; Start lemonbar
-(defvar local/lemonbar-process nil
-  "Holds the process of the running lemonbar instance, if any")
-
-(defun local/kill-panel ()
-  (interactive)
-  (when local/lemonbar-process
-    (ignore-errors
-      (kill-process local/lemonbar-process)))
-  (setq local/lemonbar-process nil))
-
-(defun local/start-panel ()
-  (interactive)
-  (local/kill-panel)
-  (setq local/lemonbar-process (start-process-shell-command "lemonbar" nil (expand-file-name "config/exwm/lemonbar/lemonbar.sh" user-emacs-directory))))
-
-;; Get exwm workspace information to lemonbar, thanks to u/franburstall
-(defun local/exwm-workspace-list ()
-  "Return a lemonbar string showing workspace list."
-  (let* ((num (exwm-workspace--count))
-     (sequence (number-sequence 0 (1- num)))
-     (curr (exwm-workspace--position exwm-workspace--current)))
-    (mapconcat (lambda (i)
-         (format (if (= i curr) "[%%{F#9d5e7a}%d%%{F-}] " "%d ") i))
-           sequence "")))
-
-(defun local/exwm-report-workspaces-to-lemonbar ()
-  (with-temp-file "/run/user/1000/lemonbar.fifo"
-    (insert (format "WIN%s\n" (local/exwm-workspace-list)))))
-
-(defun local/exwm-report-window-class-title ()
-  (interactive)
-  (let
-      ((n (concat exwm-class-name ": "
-		  (if (<= (length exwm-title) 40) exwm-title
-		    (concat (substring exwm-title 0 39) "...")))))
-    (with-temp-file "/run/user/1000/lemonbar.fifo"
-      (insert
-       (format "NAM*%s*\n"
-	       (if (string= n ": ") "~emacs buffer~" n))))))
-  
-(defun local/exwm-report-class-title-for-current-buffer ()
-  (if (string= (buffer-name) (buffer-name (car (buffer-list))))
-      (local/exwm-report-window-class-title)))
-
-(defun local/exwm-rename-buffer ()
-  (interactive)
-  (exwm-workspace-rename-buffer
-   (concat exwm-class-name ": "
-	   (if (<= (length exwm-title) 25) exwm-title
-	     (concat (substring exwm-title 0 24) "...")))))
-
-(add-hook 'exwm-workspace-switch-hook #'local/exwm-report-workspaces-to-lemonbar)
-(add-hook 'exwm-workspace-switch-hook #'local/exwm-report-window-class-title)
-(add-hook 'exwm-init-hook #'local/exwm-report-workspaces-to-lemonbar)
-(add-hook 'exwm-init-hook #'local/exwm-report-window-class-title)
+(require 'statusbar)
 
 (defun local/exwm-init-hook ()
   ;; Make workspace 1 be the one where we land at startup
@@ -100,6 +50,12 @@
   :config
   (progn
     (unbind-key "s-l" desktop-environment-mode-map)
+    ;; use custom binds defined in statusbar.el instead
+    (unbind-key "<XF86AudioMute>" desktop-environment-mode-map)
+    (unbind-key "<XF86AudioLowerVolume>" desktop-environment-mode-map)
+    (unbind-key "<XF86AudioRaiseVolume>" desktop-environment-mode-map)
+    (unbind-key "<XF86MonBrightnessDown>" desktop-environment-mode-map)
+    (unbind-key "<XF86MonBrightnessUp>" desktop-environment-mode-map)
     (desktop-environment-mode)))
 
 (use-package exwm
@@ -109,15 +65,20 @@
   ;; Do not ask to replace existing window manager (for nested emacs)
   (setq exwm-replace nil)
 
-  ;; When window "class" updates, use it to set the buffer name
+  (local/start-panel)
+
+  (add-hook 'exwm-workspace-switch-hook #'local/exwm-report-workspaces-to-statusbar)
+  (add-hook 'exwm-workspace-switch-hook #'local/exwm-report-window-class-title)
+  (add-hook 'exwm-init-hook #'local/exwm-report-workspaces-to-statusbar)
+  (add-hook 'exwm-init-hook #'local/exwm-report-window-class-title)
+
   ;; (add-hook 'exwm-update-class-hook #'local/exwm-update-class)
   (add-hook 'exwm-update-class-hook #'local/exwm-rename-buffer)
-  (add-hook 'exwm-update-title-hook #'local/exwm-rename-buffer)
-  ;; Update lemonbar wm_class/name with exwm updates
   (add-hook 'exwm-update-class-hook #'local/exwm-report-window-class-title)
+  (add-hook 'exwm-update-title-hook #'local/exwm-rename-buffer)
   (add-hook 'exwm-update-title-hook #'local/exwm-report-window-class-title)
   ;; Update lemonbar wm_name when opening/closing buffers/windows
-  (add-hook 'buffer-list-update-hook #'local/exwm-report-class-title-for-current-buffer)
+  (add-hook 'buffer-list-update-hook #'local/exwm-report-window-class-title-current-buffer)
   ;; When EXWM finishes initialization, do some extra setup
   (add-hook 'exwm-init-hook #'local/exwm-init-hook)
   ;; exwm-modeline (make sure you have it installed)

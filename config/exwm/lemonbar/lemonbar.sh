@@ -8,7 +8,7 @@ fifo=${XDG_RUNTIME_DIR:-/tmp}/lemonbar.fifo
 test -e $fifo && rm $fifo
 mkfifo $fifo
 
-trap 'pkill lemonbar; kill $(jobs -p)' EXIT
+trap 'pkill lemonbar; kill $(jobs -p); emacsclient --eval "(local/kill-panel)"' EXIT
 
 datetime() {
     date "+DAT%a %d %b, %I:%M %p" > $fifo
@@ -68,9 +68,17 @@ battery() {
     echo "BAT$(cat /sys/class/power_supply/BATT/capacity)%" > $fifo
 }
 
+# Initialize bar data
+datetime &
+load &
+cpu &
+brightness &
+volume &
+memory &
+battery &
+
+# Poll
 while :; do datetime; sleep 5s; done &
-while :; do brightness; sleep 2s; done &
-while :; do volume; sleep 2s; done &
 while :; do load; sleep 3s; done &
 while :; do cpu; sleep 2s; done &
 while :; do memory; sleep 3s; done &
