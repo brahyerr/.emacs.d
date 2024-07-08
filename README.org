@@ -1,2 +1,6 @@
 * Emacs dots
 Not intended for public use; clone at your own peril.
+
+* NOTES
+- exwm may lock up if lemonbar quits unexpectedly. This is because exwm has hooks to report window information to lemonbar, and if exwm tries to do this while lemonbar is not running, then exwm will hang.
+- I've mitigated this with =local/kill-panel=, so that shutting down lemonbar normally will not cause exwm to hang. However, for whatever reason, if lemonbar cannot not call this function on shutdown, then exwm will probably hang.
