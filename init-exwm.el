@@ -22,7 +22,7 @@
   (local/kill-panel)
   (setq local/lemonbar-process (start-process-shell-command "lemonbar" nil (expand-file-name "config/exwm/lemonbar/lemonbar.sh" user-emacs-directory))))
 
-;; Get exwm workspaces to lemonbar, thanks to u/franburstall
+;; Get exwm workspace information to lemonbar, thanks to u/franburstall
 (defun local/exwm-workspace-list ()
   "Return a lemonbar string showing workspace list."
   (let* ((num (exwm-workspace--count))
@@ -30,14 +30,38 @@
      (curr (exwm-workspace--position exwm-workspace--current)))
     (mapconcat (lambda (i)
          (format (if (= i curr) "[%%{F#9d5e7a}%d%%{F-}] " "%d ") i))
-           sequence "")
-    ))
+           sequence "")))
 
 (defun local/exwm-report-workspaces-to-lemonbar ()
   (with-temp-file "/run/user/1000/lemonbar.fifo"
     (insert (format "WIN%s\n" (local/exwm-workspace-list)))))
+
+(defun local/exwm-report-window-class-title ()
+  (interactive)
+  (let
+      ((n (concat exwm-class-name ": "
+		  (if (<= (length exwm-title) 40) exwm-title
+		    (concat (substring exwm-title 0 39) "...")))))
+    (with-temp-file "/run/user/1000/lemonbar.fifo"
+      (insert
+       (format "NAM*%s*\n"
+	       (if (string= n ": ") "~emacs buffer~" n))))))
+  
+(defun local/exwm-report-class-title-for-current-buffer ()
+  (if (string= (buffer-name) (buffer-name (car (buffer-list))))
+      (local/exwm-report-window-class-title)))
+
+(defun local/exwm-rename-buffer ()
+  (interactive)
+  (exwm-workspace-rename-buffer
+   (concat exwm-class-name ": "
+	   (if (<= (length exwm-title) 25) exwm-title
+	     (concat (substring exwm-title 0 24) "...")))))
+
 (add-hook 'exwm-workspace-switch-hook #'local/exwm-report-workspaces-to-lemonbar)
+(add-hook 'exwm-workspace-switch-hook #'local/exwm-report-window-class-title)
 (add-hook 'exwm-init-hook #'local/exwm-report-workspaces-to-lemonbar)
+(add-hook 'exwm-init-hook #'local/exwm-report-window-class-title)
 
 (defun local/exwm-init-hook ()
   ;; Make workspace 1 be the one where we land at startup
@@ -61,13 +85,6 @@
 
 (defun local/exwm-update-class ()
   (exwm-workspace-rename-buffer exwm-class-name))
-
-(defun local/exwm-rename-buffer ()
-  (interactive)
-  (exwm-workspace-rename-buffer
-   (concat exwm-class-name ": "
-	   (if (<= (length exwm-title) 25) exwm-title
-	     (concat (substring exwm-title 0 24) "...")))))
 
 ;;;; Ensure screen updates with xrandr will refresh EXWM frames
 (require 'exwm-randr)
@@ -96,6 +113,11 @@
   ;; (add-hook 'exwm-update-class-hook #'local/exwm-update-class)
   (add-hook 'exwm-update-class-hook #'local/exwm-rename-buffer)
   (add-hook 'exwm-update-title-hook #'local/exwm-rename-buffer)
+  ;; Update lemonbar wm_class/name with exwm updates
+  (add-hook 'exwm-update-class-hook #'local/exwm-report-window-class-title)
+  (add-hook 'exwm-update-title-hook #'local/exwm-report-window-class-title)
+  ;; Update lemonbar wm_name when opening/closing buffers/windows
+  (add-hook 'buffer-list-update-hook #'local/exwm-report-class-title-for-current-buffer)
   ;; When EXWM finishes initialization, do some extra setup
   (add-hook 'exwm-init-hook #'local/exwm-init-hook)
   ;; exwm-modeline (make sure you have it installed)

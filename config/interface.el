@@ -77,16 +77,18 @@
 ;; (add-to-list 'mm-inhibit-file-name-handlers 'openwith-file-handler)
 
 ;;;; modeline
-(use-package doom-modeline-now-playing
-  :config
-  (doom-modeline-now-playing-timer))
+;; (use-package doom-modeline-now-playing
+;;   :config
+;;   (doom-modeline-now-playing-timer))
 (use-package doom-modeline
-  :after (doom-modeline-now-playing)
+  ;; :after (doom-modeline-now-playing)
   :config
   (progn
     (doom-modeline-def-modeline 'local-modeline
       '(bar matches buffer-info remote-host buffer-position parrot selection-info)
-      '(now-playing misc-info minor-modes input-method buffer-encoding major-mode process vcs check))
+      '(misc-info minor-modes input-method buffer-encoding major-mode process vcs check))
+    (setq doom-modeline-height 28)
+    (setq doom-modeline-battery t)
     (add-hook 'doom-modeline-mode-hook
               (lambda ()
 		(doom-modeline-set-modeline 'local-modeline 'default)))
