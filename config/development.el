@@ -114,6 +114,11 @@
 (use-package envrc
   :hook (after-init . envrc-global-mode))
 
+;;;; magit
+(use-package magit
+  :custom
+  (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
+
 ;;;; Close compilation buffer if no errors
 ;; from emacswiki
 ;; Helper for compilation. Close the compilation window if

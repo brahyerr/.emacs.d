@@ -1,25 +1,17 @@
 (add-to-list 'load-path (expand-file-name "config/exwm" user-emacs-directory))
 (setq use-dialog-box nil)
 
-(defcustom local/statusbar-fifo-path "/run/user/1000/lemonbar.fifo"
-  "Path to statusbar fifo."
-  :type 'string)
-
 ;;;; Function definitions
 (defun local/run-in-background (command)
   (let ((command-parts (split-string command "[ ]+")))
     (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
-
-;; Start lemonbar
-(require 'statusbar)
 
 (defun local/exwm-init-hook ()
   ;; Make workspace 1 be the one where we land at startup
   (exwm-workspace-switch-create 1)
   ;; Launch apps that will run in the background
   ;; (local/run-in-background "nm-applet")
-  (local/run-in-background "dunst")
-  (local/start-panel))
+  (local/run-in-background "dunst"))
 
 (defun local/set-wallpaper ()
   (interactive)
@@ -32,6 +24,13 @@
 (require 'exwm-systemtray)
 (setq exwm-systemtray-height 16)
 (exwm-systemtray-enable)
+
+(defun local/exwm-rename-buffer ()
+  (interactive)
+  (exwm-workspace-rename-buffer
+   (concat exwm-class-name ": "
+	   (if (<= (length exwm-title) 25) exwm-title
+	     (concat (substring exwm-title 0 24) "...")))))
 
 (defun local/exwm-update-class ()
   (exwm-workspace-rename-buffer exwm-class-name))
@@ -51,11 +50,11 @@
   (progn
     (unbind-key "s-l" desktop-environment-mode-map)
     ;; use custom binds defined in statusbar.el instead
-    (unbind-key "<XF86AudioMute>" desktop-environment-mode-map)
-    (unbind-key "<XF86AudioLowerVolume>" desktop-environment-mode-map)
-    (unbind-key "<XF86AudioRaiseVolume>" desktop-environment-mode-map)
-    (unbind-key "<XF86MonBrightnessDown>" desktop-environment-mode-map)
-    (unbind-key "<XF86MonBrightnessUp>" desktop-environment-mode-map)
+    ;; (unbind-key "<XF86AudioMute>" desktop-environment-mode-map)
+    ;; (unbind-key "<XF86AudioLowerVolume>" desktop-environment-mode-map)
+    ;; (unbind-key "<XF86AudioRaiseVolume>" desktop-environment-mode-map)
+    ;; (unbind-key "<XF86MonBrightnessDown>" desktop-environment-mode-map)
+    ;; (unbind-key "<XF86MonBrightnessUp>" desktop-environment-mode-map)
     (desktop-environment-mode)))
 
 (use-package exwm
@@ -64,25 +63,15 @@
   (setq exwm-workspace-number 4)
   ;; Do not ask to replace existing window manager (for nested emacs)
   (setq exwm-replace nil)
-
-  (local/start-panel)
-
-  (add-hook 'exwm-workspace-switch-hook #'local/exwm-report-workspaces-to-statusbar)
-  (add-hook 'exwm-workspace-switch-hook #'local/exwm-report-window-class-title)
-  (add-hook 'exwm-init-hook #'local/exwm-report-workspaces-to-statusbar)
-  (add-hook 'exwm-init-hook #'local/exwm-report-window-class-title)
-
-  ;; (add-hook 'exwm-update-class-hook #'local/exwm-update-class)
   (add-hook 'exwm-update-class-hook #'local/exwm-rename-buffer)
-  (add-hook 'exwm-update-class-hook #'local/exwm-report-window-class-title)
   (add-hook 'exwm-update-title-hook #'local/exwm-rename-buffer)
-  (add-hook 'exwm-update-title-hook #'local/exwm-report-window-class-title)
-  ;; Update lemonbar wm_name when opening/closing buffers/windows
-  (add-hook 'buffer-list-update-hook #'local/exwm-report-window-class-title-current-buffer)
+  ;; Init statusbar
+  (require 'statusbar)
   ;; When EXWM finishes initialization, do some extra setup
   (add-hook 'exwm-init-hook #'local/exwm-init-hook)
+  
   ;; exwm-modeline (make sure you have it installed)
-  (add-hook 'exwm-init-hook #'exwm-modeline-mode)
+  ;; (add-hook 'exwm-init-hook #'exwm-modeline-mode)
 
   ;; These keys should always pass through to Emacs
   (setq exwm-input-prefix-keys
@@ -181,3 +170,6 @@
 (require 'interface_exwm)
 (require 'desktop)
 (require 'keybinds_exwm)
+
+(use-package corfu-exwm
+  :after corfu)

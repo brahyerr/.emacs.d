@@ -114,6 +114,7 @@ If the new path's directories does not exist, create them."
 (require 'development)
 (require 'completion)
 (require 'interface)
+(require 'modeline_local)
 (require 'keybinds)
 (require 'org_local)
 (require 'drawing)
@@ -122,3 +123,9 @@ If the new path's directories does not exist, create them."
 (require 'llm_local)
 (require 'pdf_local)
 (require 'media-player)
+
+;;;; testing
+(defun local/test-expr (expr)
+  "Test an elisp expression by running it with a clean instance of emacs."
+  (progn
+    (start-process-shell-command "emacs-test" nil (format "nix shell nixpkgs#emacs -c emacs -Q --eval \"%s\"" (macroexpand expr)))))
