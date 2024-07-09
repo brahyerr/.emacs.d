@@ -1,5 +1,10 @@
 ;; Load exwm if it is present
-(if (package-installed-p 'exwm) (load-file (expand-file-name "init-exwm.el" user-emacs-directory)))
+;; (if (package-installed-p 'exwm) (load-file (expand-file-name "init-exwm.el" user-emacs-directory)))
+(add-to-list 'load-path (expand-file-name "config" user-emacs-directory))
+(if (package-installed-p 'exwm)
+    (progn
+      (add-to-list 'load-path (expand-file-name "config/exwm" user-emacs-directory))
+      (require 'init-exwm)))
 
 ;; Startup speed, annoyance suppression
 (setq gc-cons-threshold 10000000)
@@ -109,7 +114,6 @@ If the new path's directories does not exist, create them."
 ;;   (package-install 'use-package))
 
 ;;;; Enable configs
-(add-to-list 'load-path (expand-file-name "config" user-emacs-directory))
 (require 'fonts)
 (require 'development)
 (require 'completion)
@@ -129,3 +133,5 @@ If the new path's directories does not exist, create them."
   "Test an elisp expression by running it with a clean instance of emacs."
   (progn
     (start-process-shell-command "emacs-test" nil (format "nix shell nixpkgs#emacs -c emacs -Q --eval \"%s\"" (macroexpand expr)))))
+
+(provide 'init)

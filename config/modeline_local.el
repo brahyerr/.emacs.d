@@ -9,7 +9,7 @@
   ;; :after (doom-modeline-now-playing)
   :config
   (progn
-    (setq doom-modeline-height 28)
+    (setq doom-modeline-height 24)
     (setq doom-modeline-battery t)
     ;; (doom-modeline-def-modeline 'local-modeline
     ;;   '(bar matches buffer-info remote-host buffer-position parrot selection-info)

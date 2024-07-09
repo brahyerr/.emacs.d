@@ -65,8 +65,12 @@
   (setq exwm-replace nil)
   (add-hook 'exwm-update-class-hook #'local/exwm-rename-buffer)
   (add-hook 'exwm-update-title-hook #'local/exwm-rename-buffer)
+  
   ;; Init statusbar
   (require 'statusbar)
+  (add-hook 'exwm-init-hook #'local/exwm--toggle-report-workspaces)
+  (add-hook 'exwm-workspace-switch-hook #'local/exwm-report-workspaces-list)
+
   ;; When EXWM finishes initialization, do some extra setup
   (add-hook 'exwm-init-hook #'local/exwm-init-hook)
   
@@ -173,3 +177,5 @@
 
 (use-package corfu-exwm
   :after corfu)
+
+(provide 'init-exwm)
