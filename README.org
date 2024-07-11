@@ -2,5 +2,7 @@
 Not intended for public use; clone at your own peril.
 
 * NOTES
-- exwm may lock up if lemonbar quits unexpectedly. This is because exwm has hooks to report window information to lemonbar, and if exwm tries to do this while lemonbar is not running, then exwm will hang.
-- I've mitigated this with =local/kill-panel=, so that shutting down lemonbar normally will not cause exwm to hang. However, for whatever reason, if lemonbar cannot not call this function on shutdown, then exwm will probably hang.
+- I use i3bar.el for the statusbar. I have a custom block that runs =tail= on a fifo file for workspace information reported by exwm. If the bar is not active, but exwm is still reporting information, then _emacs will hang._
+  - I've mitigated this by changing the report function to return nil if i3bar isnt running, but this is a somewhat fragile system.
+    - On startup, make sure you are *focused* into an emacs window, then call =i3bar-mode= to start the statusbar. Afterwards, you should be able to freely disable/enable the statusbar by calling =i3bar-mode= again.
+- Toggle window-divider-mode if I (you) have problems with the window divider being too large
