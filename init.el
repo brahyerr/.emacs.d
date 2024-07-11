@@ -1,6 +1,7 @@
-;; Load exwm if it is present
-;; (if (package-installed-p 'exwm) (load-file (expand-file-name "init-exwm.el" user-emacs-directory)))
+;; Add config dir to load-path
 (add-to-list 'load-path (expand-file-name "config" user-emacs-directory))
+
+;; Load exwm if it is present
 (if (package-installed-p 'exwm)
     (progn
       (add-to-list 'load-path (expand-file-name "config/exwm" user-emacs-directory))
@@ -104,13 +105,13 @@ If the new path's directories does not exist, create them."
 (savehist-mode t)
 
 ;;;; Enable configs
-(require 'fonts)
 (require 'development)
 (require 'completion)
 (require 'interface)
 (require 'modeline_local) ; should load after interface
 (require 'keybinds)
 (require 'org_local)
+(require 'fonts)
 (require 'drawing)
 (require 'latex_local)
 (require 'shell_local)

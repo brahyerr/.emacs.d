@@ -7,7 +7,11 @@
   (org-download-heading-lvl 0)
   (org-download-timestamp "org_%Y%m%d-%H%M%S_")
   ;; (org-image-actual-width 900)
-  (org-download-screenshot-method "wl-paste --type image/png > '%s'")
+  (customize-set-variable
+   'org-download-screenshot-method (pcase (car (xdg-current-desktop))
+				    ("GNOME" "gnome-screenshot -a -f %s")
+				    ("sway"  "grim -g \"$(slurp)\" %s")
+				    ("exwm" "scrot -s %s")))
   :bind
   ("C-M-y" . org-download-screenshot)
   :config

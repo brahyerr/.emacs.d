@@ -78,8 +78,6 @@
 ;;   (setq lsp-bridge-enable-hover-diagnostic t)
 ;;   (global-lsp-bridge-mode))
 
-(use-package flycheck)
-
 ;;;; eldoc settings
 (setq eldoc-idle-delay 0.3)
 ;; (defun local/eldoc-buffer-hook ()
@@ -158,23 +156,11 @@
   :load-path
   ("vendor/fast-scroll")
   :hook
-  ((fast-scroll-start . (lambda () (flycheck-mode -1)))
-   (fast-scroll-end . (lambda () (flycheck-mode -1))))
+  ((fast-scroll-start . (lambda () (flymake-mode nil)))
+   (fast-scroll-end . (lambda () (flymake-mode t))))
   :config
-  (progn
-    (fast-scroll-config)
-    (fast-scroll-mode 1)
-    (setq fast-scroll-throttle 0.5))
-  )
-	    
-;; (load-file (expand-file-name "config/fast-scroll.el" user-emacs-directory))
-;; (require 'fast-scroll)
-;; If you would like to turn on/off other modes, like flycheck, add
-;; your own hooks.
-;; (add-hook 'fast-scroll-start-hook (lambda () (flycheck-mode -1)))
-;; (add-hook 'fast-scroll-end-hook (lambda () (flycheck-mode 1)))
-;; (fast-scroll-config)
-;; (fast-scroll-mode 1)
-;; (setq fast-scroll-throttle 0.5)
+  (fast-scroll-config)
+  (fast-scroll-mode 1)
+  (setq fast-scroll-throttle 0.5))
 
 (provide 'development)
