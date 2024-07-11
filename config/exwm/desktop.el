@@ -2,6 +2,7 @@
   :after exwm
   :config (desktop-environment-mode)
   :custom
+  (desktop-environment-screenshot-directory "~/Pictures/Screenshots")
   (desktop-environment-brightness-small-increment "2%+")
   (desktop-environment-brightness-small-decrement "2%-")
   (desktop-environment-brightness-normal-increment "5%+")
