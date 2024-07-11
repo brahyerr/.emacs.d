@@ -27,9 +27,9 @@
 (set-fringe-mode 10)
 (menu-bar-mode -1)
 
-(setq undo-limit 5000000)
-;; (setq-default left-margin-width 2
-;; 	      right-margin-width 2)
+(setq undo-limit 2000000)
+(setq-default left-margin-width 2
+	      right-margin-width 2)
 
 ;; (add-to-list 'mode-line-format '("  "))
 
@@ -76,8 +76,8 @@ If the new path's directories does not exist, create them."
 (add-to-list 'default-frame-alist '(alpha-background . 90))
 
 ;; Frame margins
-(set-frame-parameter nil 'internal-border-width 8)
-(add-to-list 'default-frame-alist '(internal-border-width . 8))
+(set-frame-parameter nil 'internal-border-width 0)
+(add-to-list 'default-frame-alist '(internal-border-width . 0))
 
 ;; UI Enhancements
 (dolist (mode '(prog-mode-hook))
@@ -103,22 +103,12 @@ If the new path's directories does not exist, create them."
 ;; Save history
 (savehist-mode t)
 
-;;;; load-path recursively ~/.emacs.d/dot.d
-;; (let* ((path (expand-file-name "dot.d" user-emacs-directory))
-;;          (local-pkgs (mapcar 'file-name-directory (directory-files-recursively path "\\.el$"))))
-;;     (if (file-accessible-directory-p path)
-;;         (mapc (apply-partially 'add-to-list 'load-path) local-pkgs)
-;;       (make-directory path :parents)))
-;; (unless (package-installed-p 'use-package)
-;;   (package-refresh-contents)
-;;   (package-install 'use-package))
-
 ;;;; Enable configs
 (require 'fonts)
 (require 'development)
 (require 'completion)
 (require 'interface)
-(require 'modeline_local)
+(require 'modeline_local) ; should load after interface
 (require 'keybinds)
 (require 'org_local)
 (require 'drawing)
@@ -127,11 +117,5 @@ If the new path's directories does not exist, create them."
 (require 'llm_local)
 (require 'pdf_local)
 (require 'media-player)
-
-;;;; testing
-(defun local/test-expr (expr)
-  "Test an elisp expression by running it with a clean instance of emacs."
-  (progn
-    (start-process-shell-command "emacs-test" nil (format "nix shell nixpkgs#emacs -c emacs -Q --eval \"%s\"" (macroexpand expr)))))
 
 (provide 'init)

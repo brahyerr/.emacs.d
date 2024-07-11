@@ -9,7 +9,27 @@
 (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 
 ;;;; colortheme
-(load-theme 'ef-spring t)
+(load-theme 'ef-elea-light t)
+
+;; (use-package spacious-padding
+;;   :config
+;;   (setq spacious-padding-subtle-mode-line nil)
+;;   (setq spacious-padding-widths
+;;       '( :internal-border-width 16
+;;          :header-line-width 0
+;;          :mode-line-width 0
+;;          :tab-width 0
+;;          :right-divider-width 16
+;;          :scroll-bar-width 0
+;;          :fringe-width 0)))
+
+;; casual-ibuffer
+(use-package casual-ibuffer
+  :config
+  (keymap-global-set "C-c o" 'casual-ibuffer-tmenu)
+  (keymap-set ibuffer-mode-map "C-o" #'casual-ibuffer-tmenu)
+  (keymap-set ibuffer-mode-map "F" #'casual-ibuffer-filter-tmenu)
+  (keymap-set ibuffer-mode-map "s" #'casual-ibuffer-sortby-tmenu))
 
 ;; dirvish
 (use-package dirvish

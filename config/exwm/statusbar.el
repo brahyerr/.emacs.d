@@ -33,20 +33,8 @@
   (if (symbol-value i3bar-mode)
       (progn
 	(local/statusbar--create-fifo-path local/statusbar-fifo-path)
-	(fset 'local/exwm-report-workspaces-list 'local/exwm-report-workspaces-list--fn)
-	;; (local/exwm-report-workspaces-list)
-	;; (setq local/statusbar-init-p t)
-	)
-    (progn
-      (fset 'local/exwm-report-workspaces-list (lambda () nil))
-      ;; (setq local/statusbar-init-p nil)
-      )))
-
-;; (defun local/exwm-statusbar--init ()
-;;   "Init everything needed for statusbar reports and begin reporting."
-;;   (interactive)
-;;   (local/statusbar-fifo-path--create local/statusbar-fifo-path)
-;;   (local/exwm-report-workspaces-list))
+	(fset 'local/exwm-report-workspaces-list 'local/exwm-report-workspaces-list--fn))
+      (fset 'local/exwm-report-workspaces-list (lambda () nil))))
 
 ;; Initialize function with nil function
 (fset 'local/exwm-report-workspaces-list (lambda () nil))
@@ -61,10 +49,11 @@
   (tab-bar-mode 1))
 
 (use-package i3bar
-  :hook
-  (i3bar-mode . local/exwm--toggle-report-workspaces)
   :config
-  (i3bar-mode 1))
+  (progn
+    (add-hook 'i3bar-mode-hook #'local/exwm--toggle-report-workspaces)
+    ;; (i3bar-mode 1)
+    ))
 
 (defun i3bar-face-function-theme (foreground background)
   (list

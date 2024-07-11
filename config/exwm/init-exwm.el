@@ -49,15 +49,10 @@
   :config
   (progn
     (unbind-key "s-l" desktop-environment-mode-map)
-    ;; use custom binds defined in statusbar.el instead
-    ;; (unbind-key "<XF86AudioMute>" desktop-environment-mode-map)
-    ;; (unbind-key "<XF86AudioLowerVolume>" desktop-environment-mode-map)
-    ;; (unbind-key "<XF86AudioRaiseVolume>" desktop-environment-mode-map)
-    ;; (unbind-key "<XF86MonBrightnessDown>" desktop-environment-mode-map)
-    ;; (unbind-key "<XF86MonBrightnessUp>" desktop-environment-mode-map)
     (desktop-environment-mode)))
 
 (use-package exwm
+  :hook (exwm-mode . (lambda () (add-to-list 'mode-line-format '("   "))))  ; pads the mode-line with spaces in exwm windows
   :config
   ;; Set the default number of workspaces
   (setq exwm-workspace-number 4)
@@ -68,7 +63,7 @@
   
   ;; Init statusbar
   (require 'statusbar)
-  (add-hook 'exwm-init-hook #'local/exwm--toggle-report-workspaces)
+  ;; (add-hook 'exwm-init-hook #'local/exwm--toggle-report-workspaces)
   (add-hook 'exwm-workspace-switch-hook #'local/exwm-report-workspaces-list)
 
   ;; When EXWM finishes initialization, do some extra setup
@@ -120,16 +115,20 @@
 
 	  ;; Cycle windows
           ([?\s-o] . other-window)
+	  ;; Split windows
+	  ([?\s->] . split-window-right)
+	  ([?\s-<] . split-window-below)
 	  ;; Kill current buffer, window
+	  ([s-backspace] . kill-buffer)
+	  ([S-s-backspace] . kill-current-buffer)
 	  ([?\s-\\] . delete-window)
-	  ([s-backspace] . kill-current-buffer)
-	  ([S-s-backspace] . kill-buffer-and-window)
+	  ([?\s-|] . kill-buffer-and-window)
 
 	  ;; Move between buffers
 	  ([s-tab] . switch-to-buffer)
 	  ([M-tab] . switch-to-next-buffer)
 	  ([M-S-iso-lefttab] . switch-to-prev-buffer)
-	  ([M-iso-lefttab] . switch-to-prev-buffer) ; sometimes the previous bind doesnt work for a keyboard
+	  ([M-iso-lefttab] . switch-to-prev-buffer) ; sometimes the previous bind doesnt work
 	  
 	  ;; Swap windows
           ([?\s-H] . windmove-swap-states-left)
