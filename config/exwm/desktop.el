@@ -21,7 +21,8 @@
   (start-process-shell-command "notify-send" nil "notify-send \"DUNST_COMMAND_TOGGLE\""))
 
 ;;;; filechooser + vertico integreation
-(require 'filechooser)
+(use-package filechooser
+  :config (setq filechooser-use-popup-frame nil))
 (with-eval-after-load 'filechooser
   (defun +filechooser-multiple-vertico-tab ()
     (interactive)

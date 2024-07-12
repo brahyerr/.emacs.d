@@ -6,15 +6,15 @@
   (org-download-image-dir "~/org/_resources")
   (org-download-heading-lvl 0)
   (org-download-timestamp "org_%Y%m%d-%H%M%S_")
-  ;; (org-image-actual-width 900)
-  (customize-set-variable
-   'org-download-screenshot-method (pcase (car (xdg-current-desktop))
+  (org-image-actual-width 2.0)
+  (org-download-screenshot-method (pcase (car (xdg-current-desktop))
 				    ("GNOME" "gnome-screenshot -a -f %s")
 				    ("sway"  "grim -g \"$(slurp)\" %s")
 				    ("exwm" "scrot -s %s")))
   :bind
   ("C-M-y" . org-download-screenshot)
   :config
+  (add-hook 'dired-mode-hook #'org-download-enable)
   (require 'org-download))
 
 (use-package org-roam
