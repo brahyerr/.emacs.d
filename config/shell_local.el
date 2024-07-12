@@ -1,4 +1,5 @@
-(use-package eat)
+(use-package eat
+  :hook (eat-mode . (lambda () (add-to-list 'mode-line-format '("  ")))))
 
 ;; For `eat-eshell-mode'.
 (add-hook 'eshell-load-hook #'eat-eshell-mode)

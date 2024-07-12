@@ -160,7 +160,7 @@
    (fast-scroll-end . (lambda () (flymake-mode t))))
   :config
   (fast-scroll-config)
-  (fast-scroll-mode 1)
-  (setq fast-scroll-throttle 0.5))
+  (setq fast-scroll-throttle 0.5)
+  (fast-scroll-mode 1))
 
 (provide 'development)
