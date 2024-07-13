@@ -174,7 +174,7 @@
 (require 'desktop)
 (require 'keybinds_exwm)
 
-(use-package corfu-exwm
-  :after corfu)
+;; (use-package corfu-exwm
+;;   :after corfu)
 
 (provide 'init-exwm)
