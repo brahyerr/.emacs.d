@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;;;;;;;; Completion framework with Vertico, Consult, Corfu, Orderless, Embark, Marginalia ;;;;;;;;
 
 ;; Enable vertico
@@ -45,8 +47,8 @@
   ;; Enable recursive minibuffers
   (setq enable-recursive-minibuffers t))
 
-(setq corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
-(setq corfu-auto t)                 ;; Enable auto completion
+(use-package corfu
+  ;; :custom
   ;; (corfu-separator ?\s)          ;; Orderless field separator
   ;; (corfu-quit-at-boundary nil)   ;; Never quit at completion boundary
   ;; (corfu-quit-no-match nil)      ;; Never quit, even if there is no match
@@ -54,25 +56,29 @@
   ;; (corfu-preselect 'prompt)      ;; Preselect the prompt
   ;; (corfu-on-exact-match nil)     ;; Configure handling of exact matches
   ;; (corfu-scroll-margin 5)        ;; Use scroll margin
+  :config
+  (setq corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
+  (setq corfu-auto t)                 ;; Enable auto completion
 
-;; (keymap-global-set "M-n" 'corfu-next)
-;; (keymap-global-set "M-p" 'corfu-previous)
-(global-corfu-mode t)
+  ;; (keymap-global-set "M-n" 'corfu-next)
+  ;; (keymap-global-set "M-p" 'corfu-previous)
+  (setq corfu-popupinfo-delay '(0.2 . 0.2))
+  (setq corfu-popupinfo-hide t)
+  (global-corfu-mode t)
+  ;; Enable corfu popupinfo
+  (corfu-popupinfo-mode t))
 
-;; Enable corfu popupinfo
-(corfu-popupinfo-mode t)
-(setq corfu-popupinfo-delay '(0.2 . 0.2))
-(setq corfu-popupinfo-hide t)
-
-(defun corfu-enable-in-minibuffer ()
-  "Enable Corfu in the minibuffer if `completion-at-point' is bound."
-  (when (where-is-internal #'completion-at-point (list (current-local-map)))
-    ;; (setq-local corfu-auto nil) ;; Enable/disable auto completion
-    (setq-local corfu-echo-delay nil ;; Disable automatic echo and popup
-                ; corfu-popupinfo-delay nil)
-	)
-    (corfu-mode 1)))
-(add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer)
+(with-eval-after-load 'corfu
+  (prog2
+    (defun corfu-enable-in-minibuffer ()
+    "Enable Corfu in the minibuffer if `completion-at-point' is bound."
+    (when (where-is-internal #'completion-at-point (list (current-local-map)))
+      ;; (setq-local corfu-auto nil) ;; Enable/disable auto completion
+      (setq-local corfu-echo-delay nil ;; Disable automatic echo and popup
+					; corfu-popupinfo-delay nil)
+		  )
+      (corfu-mode 1)))
+    (add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer)))
 
 ;;; Icons for completion
 (use-package kind-icon
@@ -270,6 +276,10 @@
 
 (use-package embark-consult)
 (use-package consult-eglot-embark)
+(use-package consult-gh
+  :after consult
+  :config
+  (setq consult-gh-default-clone-directory "~/repos"))
 
 ;; Enable rich annotations using the Marginalia package
 (use-package marginalia

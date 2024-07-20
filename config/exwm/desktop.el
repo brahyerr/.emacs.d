@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (use-package desktop-environment
   :after exwm
   :config (desktop-environment-mode)

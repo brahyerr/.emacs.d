@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;; Global keys should be set in the exwm init file
 
 (exwm-input-set-key (kbd "s-f") 'exwm-layout-toggle-fullscreen)

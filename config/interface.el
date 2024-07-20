@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;;;; Support ansi-color in compilation buffer
 (use-package ansi-color
 	 :ensure nil

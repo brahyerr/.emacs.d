@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;; Set fonts for emacs
 (defcustom local/default-font-height
       (pcase (system-name)
@@ -23,10 +25,10 @@
 ;; Variable header font sizes
 (add-hook 'org-mode-hook
 	  (lambda ()
-	    (set-face-attribute 'org-level-1 nil                   :height 2.0)
-	    (set-face-attribute 'org-level-2 nil                   :height 1.8)
-	    (set-face-attribute 'org-level-3 nil                   :height 1.5)
-	    (set-face-attribute 'org-level-4 nil                   :height 1.3)
+	    (set-face-attribute 'org-level-1 nil                   :height 1.5)
+	    (set-face-attribute 'org-level-2 nil                   :height 1.3)
+	    (set-face-attribute 'org-level-3 nil                   :height 1.1)
+	    (set-face-attribute 'org-level-4 nil                   :height 1.1)
 	    (set-face-attribute 'org-level-5 nil                   :height 1.0)
 	    (set-face-attribute 'org-level-6 nil                   :height 1.0)
 	    (set-face-attribute 'org-document-title nil            :height 1.0)

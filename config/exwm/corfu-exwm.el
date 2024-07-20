@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;;;; See https://github.com/emacs-exwm/exwm/issues/31
 ;;   Make corfu aware of frame geometry in exwm (useful for external statusbars)
 (defun get-focused-monitor-geometry ()

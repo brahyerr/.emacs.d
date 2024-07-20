@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (use-package eat
   :hook (eat-mode . (lambda () (add-to-list 'mode-line-format '("  ")))))
 

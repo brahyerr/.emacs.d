@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;; Add config dir to load-path
 (add-to-list 'load-path (expand-file-name "config" user-emacs-directory))
 
@@ -63,6 +65,15 @@ If the new path's directories does not exist, create them."
 (defun disable-line-numbers-mode ()
   (interactive)
   (display-line-numbers-mode 0))
+
+;; Enable jinx-mode (spellchecking) for specific modes
+(use-package jinx
+  :hook
+  (text-mode . jinx-mode)
+  (conf-mode . jinx-mode)
+  :bind
+  (("M-$" . jinx-correct)
+         ("C-M-$" . jinx-languages)))
 
 ;; (dolist (mode '(dired-mode-hook
 ;; 		minibuffer-mode-hook

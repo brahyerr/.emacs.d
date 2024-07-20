@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;; native keybinds
 (keymap-global-set "M-}" 'next-buffer)
 (keymap-global-set "M-{" 'previous-buffer)

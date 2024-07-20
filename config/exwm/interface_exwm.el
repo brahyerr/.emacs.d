@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;;;; Show battery status in the mode line
 ;; (display-battery-mode 1)
 

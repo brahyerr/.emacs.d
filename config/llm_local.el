@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (use-package ellama
   :init
   (setopt ellama-keymap-prefix "C-c e"  ;; Overwrites previous-window-any-frame

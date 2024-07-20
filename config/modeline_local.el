@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;;;; Modeline(s) ;;;;
 
 (use-package moody

@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (defcustom local/statusbar-fifo-path "/run/user/1000/statusbar.fifo"
   "Path to statusbar fifo."
   :type 'string)

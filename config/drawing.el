@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'org
   (require 'edraw-org)
   (edraw-org-setup-default))

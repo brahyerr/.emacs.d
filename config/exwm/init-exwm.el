@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (add-to-list 'load-path (expand-file-name "config/exwm" user-emacs-directory))
 (setq use-dialog-box nil)
 
