@@ -89,4 +89,4 @@ tail -f $fifo | $(dirname -- $0)/parser.sh | lemonbar \
 	-g "x20+0+0" \
 	-B "${color_bg}" \
 	-F "${color_fg}" \
-	-f "IBM Plex Mono:size=9:weight=semibold"
+	-f "monospace:size=9:weight=semibold"

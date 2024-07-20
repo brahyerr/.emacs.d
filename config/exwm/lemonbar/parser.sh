@@ -36,5 +36,5 @@ while read -r line; do
             ;;
         *) ;;
     esac
-    echo -e "%{l}%{B${color_hl2}}    ${win}    ${date}    ${name}    %{B-}%{r}%{B${color_hl2}}    ${brightness}    ${volume}    ${cpu}    ${lod}    ${memory}    ${battery}    %{B-}"
+    echo -e "%{l}%{B${color_hl2}}   ${date}   /   ${win}   /   ${name}   %{B-}%{r}%{B${color_hl2}}   ${brightness}   /   ${volume}   /   ${cpu}   /   ${lod}   /   ${memory}   /   ${battery}   %{B-}"
 done
