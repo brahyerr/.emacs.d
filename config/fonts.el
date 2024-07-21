@@ -4,13 +4,14 @@
 (defcustom local/default-font-height
       (pcase (system-name)
 	("nix-GO" 120)
+	("nixpad" 130)
 	("nix-STATION" 120))
   "The default font height for other font variables to base their height attributes off of."
   :type '(integer))
 
 (setq-default line-spacing 2)
-(set-face-attribute 'default nil :family "monospace" :height local/default-font-height :weight 'medium)
-(set-face-attribute 'tooltip nil :family "monospace" :height local/default-font-height :weight 'medium)
+(set-face-attribute 'default nil :family "monospace" :height local/default-font-height :weight 'regular)
+(set-face-attribute 'tooltip nil :family "monospace" :height local/default-font-height :weight 'regular)
 
 ;; Set the variable pitch face
 (set-face-attribute 'variable-pitch nil :family "sans" :height local/default-font-height :weight 'regular)
@@ -39,10 +40,3 @@
 	    (set-face-attribute 'org-todo nil                      :height 1.0)))
 
 (provide 'fonts)
-
-
-
-
-
-
-
