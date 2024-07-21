@@ -13,12 +13,13 @@
   (exwm-workspace-switch-create 1)
   ;; Launch apps that will run in the background
   ;; (local/run-in-background "nm-applet")
+  (local/run-in-background "redshift -l 43.7:-79.3 -t 6500:4500 -g 0.8 -m randr")
   (local/run-in-background "dunst"))
 
 (defun local/set-wallpaper ()
   (interactive)
   (start-process-shell-command
-   "feh" nil (format "feh --bg-center --image-bg 'white' %s" (expand-file-name "vendor/papes/gimmick.jpg" user-emacs-directory))))
+   "feh" nil (format "feh --bg-center --image-bg 'white' %s" (expand-file-name "vendor/papes/gimmick_bg_variant-no_logo.png" user-emacs-directory))))
 ;; Set the wallpaper after setting screen resolution
 (local/set-wallpaper)
 
