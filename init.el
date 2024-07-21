@@ -128,6 +128,7 @@ If the new path's directories does not exist, create them."
 (require 'shell_local)
 (require 'llm_local)
 (require 'pdf_local)
+(require 'irc_local)
 (require 'media-player)
 
 (provide 'init)
