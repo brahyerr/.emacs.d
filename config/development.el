@@ -138,15 +138,15 @@
 ;;;; TRAMP
 (defun connect-desktop ()
   (interactive)
-  (dired "/sshx:v_v@nix-STATION:/"))
+  (dired "/sshx:v_v@station.home.arpa:/"))
 
 (defun connect-laptop ()
   (interactive)
-  (dired "/sshx:v_v@nix-GO:/"))
+  (dired "/sshx:v_v@pad.home.arpa:/"))
 
 (defun connect-homelab ()
   (interactive)
-  (dired "/sshx:v_v@nix-TOWER:/"))
+  (dired "/sshx:v_v@tower.home.arpa:/"))
 
 ;; (defun resize-help-window ()
 ;;   (interactive)
