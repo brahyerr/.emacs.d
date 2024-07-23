@@ -14,7 +14,8 @@
   ;; Launch apps that will run in the background
   ;; (local/run-in-background "nm-applet")
   (local/run-in-background "redshift -l 43.7:-79.3 -t 6500:4500 -g 0.8 -m randr")
-  (local/run-in-background "dunst"))
+  ;; (local/run-in-background "dunst")
+  )
 
 (defun local/set-wallpaper ()
   (interactive)
@@ -176,6 +177,7 @@
 (require 'interface_exwm)
 (require 'desktop)
 (require 'keybinds_exwm)
+(require 'notifications_exwm)
 
 ;; (use-package corfu-exwm
 ;;   :after corfu)
