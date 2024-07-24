@@ -1,5 +1,10 @@
 ;; -*- lexical-binding: t; -*-
 
+(start-process-shell-command
+ "xmodmap" nil (concat "xmodmap" " " (expand-file-name "config/exwm/X11/Xmodmap" user-emacs-directory)))
+(start-process-shell-command
+ "xrdb" nil (concat "xrdb" " " (expand-file-name "config/exwm/X11/Xresources" user-emacs-directory)))
+
 (add-to-list 'load-path (expand-file-name "config/exwm" user-emacs-directory))
 (setq use-dialog-box nil)
 
