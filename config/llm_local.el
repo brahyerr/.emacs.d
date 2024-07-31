@@ -11,7 +11,7 @@
 	   ;; value should be the same as you print in terminal during pull
 	   :chat-model (pcase (system-name)
 			 ("nix-STATION" "llama3:8b-instruct-q8_0")
-			 ("nixpad"      "codegemma:instruct"))
+			 ("nixpad"      "llama3.1:8b"))
 	   :embedding-model "nomic-embed-text"
 	   :default-chat-non-standard-params '(("num_ctx" . 8192))))
   ;; Naming new sessions with llm
@@ -19,7 +19,7 @@
 	  (make-llm-ollama
 	   :chat-model (pcase (system-name)
 			 ("nix-STATION" "llama3:8b-instruct-q8_0")
-			 ("nixpad"      "codegemma:instruct"))
+			 ("nixpad"      "llama3.1:8b"))
 
 	   :embedding-model "nomic-embed-text"
 	   :default-chat-non-standard-params '(("stop" . ("\n")))))

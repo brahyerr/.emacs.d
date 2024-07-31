@@ -14,6 +14,10 @@
 (keymap-global-set "C-c g" 'magit)
 
 ;; override local keybinds
+(add-hook 'emacs-lisp-mode-hook
+	  (lambda ()
+	    (keymap-local-set "C-M-r" 'eval-region)))
+
 (add-hook 'compilation-mode-hook
 	  (lambda ()
 	    (keymap-local-set "M-}" 'next-buffer)

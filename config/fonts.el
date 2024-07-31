@@ -4,7 +4,7 @@
 (defcustom local/default-font-height
       (pcase (system-name)
 	("nix-GO" 120)
-	("nixpad" 130)
+	("nixpad" 115)
 	("nix-STATION" 120))
   "The default font height for other font variables to base their height attributes off of."
   :type '(integer))
@@ -38,5 +38,27 @@
 	    (set-face-attribute 'org-headline-done nil             :height 1.0 :italic 1)
 	    (set-face-attribute 'org-done nil                      :height 1.0)
 	    (set-face-attribute 'org-todo nil                      :height 1.0)))
+
+;; (with-eval-after-load 'tab-bar
+;;   (custom-set-faces
+;;    `(tab-bar ((t (:family "monospace"
+;; 			  :height 1.0
+;; 			  :weight regular))))
+;;    `(tab-bar-tab ((t (:family "monospace"
+;; 			      :height 1.0
+;; 			      :weight regular))))
+;;    `(tab-bar-tab-inactive ((t (:family "monospace"
+;;                                        :height 1.0
+;;                                        :weight regular))))
+;;    `(tab-bar-tab-group-current ((t (:family "monospace"
+;; 					    :height 1.0
+;; 					    :weight regular))))
+;;    `(tab-bar-tab-group-inactive ((t (:family "monospace"
+;; 					     :height 1.0
+;; 					     :weight regular))))
+;;    `(tab-bar-tab-ungrouped ((t (:family "monospace"
+;; 					:height 1.0
+;; 					:weight regular))))
+;;    ))
 
 (provide 'fonts)
