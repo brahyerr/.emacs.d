@@ -1,5 +1,7 @@
 ;; -*- lexical-binding: t; -*-
 
+(require 'notifications_exwm)
+
 (defcustom local/statusbar-fifo-path "/run/user/1000/statusbar.fifo"
   "Path to statusbar fifo."
   :type 'string)
@@ -44,6 +46,7 @@
 (use-package tab-bar
   :custom
   (tab-bar-format '(tab-bar-format-tabs        ; Optional: Remove to _only_ display the bar.
+		    local/stack-notifications
                     tab-bar-format-align-right ; Optional: Remove to align left.
                     tab-bar-format-global
 		    ))
@@ -74,5 +77,10 @@
      ("#111111" 'default))))
 
 (custom-set-variables '(i3bar-face-function #'i3bar-face-function-theme))
+;; (custom-set-faces '(tab-bar ((t (:inherit mode-line))))
+;; 		  '(tab-bar-tab ((t (:inherit mode-line :foreground "white"))))
+;; 		  '(tab-bar-tab-inactive ((t (:inherit mode-line-inactive :foreground "black"))))
+;; 		  )
 
 (provide 'statusbar)
+;;; statusbar.el ends here

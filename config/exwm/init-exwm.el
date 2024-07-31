@@ -71,6 +71,7 @@
   (add-hook 'exwm-update-title-hook #'local/exwm-rename-buffer)
   
   ;; Init statusbar
+  (require 'notifications_exwm)
   (require 'statusbar)
   ;; (add-hook 'exwm-init-hook #'local/exwm--toggle-report-workspaces)
   (add-hook 'exwm-workspace-switch-hook #'local/exwm-report-workspaces-list)
@@ -121,6 +122,8 @@
 	  ;; Tabs
           ([?\s-\[] . tab-previous)
           ([?\s-\]] . tab-next)
+          ([?\s-t]  . tab-bar-new-tab)
+          ([?\s-T]  . tab-bar-close-tab)
 
 	  ;; Cycle windows
           ([?\s-o] . other-window)
@@ -182,7 +185,6 @@
 (require 'interface_exwm)
 (require 'desktop)
 (require 'keybinds_exwm)
-(require 'notifications_exwm)
 
 ;; (use-package corfu-exwm
 ;;   :after corfu)
