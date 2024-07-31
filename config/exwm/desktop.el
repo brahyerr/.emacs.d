@@ -5,8 +5,8 @@
   :config (desktop-environment-mode)
   :custom
   (desktop-environment-screenshot-directory "~/Pictures/Screenshots")
-  (desktop-environment-brightness-small-increment "2%+")
-  (desktop-environment-brightness-small-decrement "2%-")
+  (desktop-environment-brightness-small-increment "1%+")
+  (desktop-environment-brightness-small-decrement "1%-")
   (desktop-environment-brightness-normal-increment "5%+")
   (desktop-environment-brightness-normal-decrement "5%-"))
 
