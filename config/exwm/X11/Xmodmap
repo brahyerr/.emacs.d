@@ -1,6 +1,9 @@
 clear lock
 clear control
+clear mod1
 keycode 66 = Control_L
 keycode 37 = Escape
+keycode 108 = Delete
+keycode 105 = BackSpace
 add control = Control_L
-add Lock = Control_R
+add mod1 = Alt_L
