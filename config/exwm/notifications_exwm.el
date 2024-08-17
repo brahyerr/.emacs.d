@@ -1,10 +1,10 @@
 ;; -*- lexical-binding: t; -*-
 
 (use-package ednc
-  :init
-  (with-current-buffer (get-buffer-create ednc-log-name)
-    (save-excursion
-      (insert "Welcome to the beginning of history!" ?\n ?\n)))
+  ;; :init
+  ;; (with-current-buffer (get-buffer-create ednc-log-name)
+  ;;   (save-excursion
+  ;;     (insert "Welcome to the beginning of history!" ?\n ?\n)))
   :config
   (setq ednc-notification-amendment-functions
 	(list #'ednc--amend-mouse-controls #'ednc--amend-log-mouse-controls))

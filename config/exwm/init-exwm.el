@@ -17,8 +17,8 @@
   ;; Make workspace 1 be the one where we land at startup
   (exwm-workspace-switch-create 1)
   ;; Launch apps that will run in the background
-  ;; (local/run-in-background "nm-applet")
   (local/run-in-background "redshift -l 43.7:-79.3 -t 6500:4500 -g 0.8 -m randr")
+  (local/run-in-background "nm-applet")
   ;; (local/run-in-background "dunst")
   )
 
@@ -126,6 +126,10 @@
           ([?\s-t]  . tab-bar-new-tab)
           ([?\s-T]  . tab-bar-close-tab)
 
+	  ;; Workspaces
+	  ([?\s-\;] . (lambda () (interactive) (exwm-workspace-switch (- exwm-workspace-current-index 1))))
+	  ([?\s-'] . (lambda () (interactive) (exwm-workspace-switch (+ exwm-workspace-current-index 1))))
+
 	  ;; Cycle windows
           ([?\s-o] . other-window)
 	  ;; Split windows
@@ -157,9 +161,14 @@
           ([?\s-&] . (lambda (command)
                        (interactive (list (read-shell-command "$ ")))
                        (start-process-shell-command command nil command)))
-
+	  
+	  ;; Spawn eat terminal
+	  ([s-return] . eat)
+	  
           ;; Switch workspace
           ([?\s-w] . exwm-workspace-switch)
+	  ;; ([double-mouse-10] . (lambda () (interactive) (exwm-workspace-switch (- exwm-workspace-current-index 1))))
+	  ;; ([double-mouse-9] . (lambda () (interactive) (exwm-workspace-switch (+ exwm-workspace-current-index 1))))
 
           ;; 's-N': Switch to certain workspace with Super (Win) plus a number key (0 - 9)
           ,@(mapcar (lambda (i)
