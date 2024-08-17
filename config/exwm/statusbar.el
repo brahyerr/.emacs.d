@@ -61,22 +61,57 @@
     ))
 
 (defun i3bar-face-function-theme (foreground background)
-  (list
-   (pcase (and foreground (upcase foreground))
-     ;; ("#000000" `(:foreground "grey90"))
-     ;; ("#111111" `(:foreground))
-     ("#000000" `(:foreground ,(face-background 'mode-line-inactive nil t))) ; separators
-     ("#111111" `(:foreground ,(face-background 'default nil t)))            ; separators
-     ("#AAAAAA" 'shadow)
-     ("#BBBBBB" nil)
-     ("#CCCCCC" `(:foreground ,(face-foreground 'success nil t)))
-     ("#EEEEEE" `(:foreground ,(face-foreground 'warning nil t)))
-     ("#FFFFFF" `(:foreground ,(face-foreground 'error nil t))))
-   (pcase (and background (upcase background))
-     ("#000000" nil)
-     ("#111111" 'default))))
+  (if (custom-theme-enabled-p 'kaolin-bubblegum)
+      (list
+       (pcase (and foreground (upcase foreground))
+	 ;; ("#000000" `(:foreground "grey90"))
+	 ;; ("#111111" `(:foreground))
+	 ("#000000" `(:foreground ,(face-background 'tab-line nil t)))           ; separators
+	 ("#111111" `(:foreground ,(face-background 'default nil t)))            ; separators
+	 ("#AAAAAA" `(:foreground ,(face-foreground 'shadow nil t)))            ; separators
+	 ("#BBBBBB" nil)
+	 ("#CCCCCC" `(:foreground ,(face-foreground 'success nil t)))
+	 ("#EEEEEE" `(:foreground ,(face-foreground 'warning nil t)))
+	 ("#FFFFFF" `(:foreground ,(face-foreground 'error nil t))))
+       (pcase (and background (upcase background))
+	 ("#000000" nil)
+	 ("#111111" 'default)))
+    (if (or (custom-theme-enabled-p 'kaolin-dark) (custom-theme-enabled-p 'kaolin-aurora))
+	(list
+	 (pcase (and foreground (upcase foreground))
+	   ;; ("#000000" `(:foreground "grey90"))
+	   ;; ("#111111" `(:foreground))
+	   ("#000000" `(:foreground ,(face-background 'tab-line nil t))) ; separators
+	   ("#111111" `(:foreground ,(face-background 'mode-line-inactive nil t)))            ; separators
+	   ("#AAAAAA" `(:foreground ,(face-foreground 'shadow nil t)))            ; separators
+	   ("#BBBBBB" nil)
+	   ("#CCCCCC" `(:foreground ,(face-foreground 'success nil t)))
+	   ("#EEEEEE" `(:foreground ,(face-foreground 'warning nil t)))
+	   ("#FFFFFF" `(:foreground ,(face-foreground 'error nil t))))
+	 (pcase (and background (upcase background))
+	   ("#000000" nil)
+	   ("#111111" `(:background ,(face-background 'mode-line-inactive nil t)))))
+    	(list
+	 (pcase (and foreground (upcase foreground))
+	   ;; ("#000000" `(:foreground "grey90"))
+	   ;; ("#111111" `(:foreground))
+	   ("#000000" `(:foreground ,(face-background 'mode-line-inactive nil t))) ; separators
+	   ("#111111" `(:foreground ,(face-background 'default nil t)))            ; separators
+	   ("#AAAAAA" 'shadow)
+	   ("#BBBBBB" nil)
+	   ("#CCCCCC" `(:foreground ,(face-foreground 'success nil t)))
+	   ("#EEEEEE" `(:foreground ,(face-foreground 'warning nil t)))
+	   ("#FFFFFF" `(:foreground ,(face-foreground 'error nil t))))
+	 (pcase (and background (upcase background))
+	   ("#000000" nil)
+	   ("#111111" 'default))))
+    ))
 
-(custom-set-variables '(i3bar-face-function #'i3bar-face-function-theme))
+(defun i3bar-set-face-theme ()
+  (custom-set-variables '(i3bar-face-function #'i3bar-face-function-theme)))
+
+(i3bar-set-face-theme)
+(add-hook 'after-load-theme-hook #'i3bar-set-face-theme)
 ;; (custom-set-faces '(tab-bar ((t (:inherit mode-line))))
 ;; 		  '(tab-bar-tab ((t (:inherit mode-line :foreground "white"))))
 ;; 		  '(tab-bar-tab-inactive ((t (:inherit mode-line-inactive :foreground "black"))))

@@ -13,10 +13,13 @@
 
 ;; Switch workspaces with mouse
 (exwm-input-set-key (kbd "<mode-line> <double-mouse-10>") (lambda () (interactive) (exwm-workspace-switch (- exwm-workspace-current-index 1))))
+(exwm-input-set-key (kbd "<mode-line> <double-mouse-8>") (lambda () (interactive) (exwm-workspace-switch (- exwm-workspace-current-index 1))))
 (exwm-input-set-key (kbd "<mode-line> <double-mouse-9>") (lambda () (interactive) (exwm-workspace-switch (+ exwm-workspace-current-index 1))))
 (exwm-input-set-key (kbd "<tab-bar> <double-mouse-10>") (lambda () (interactive) (exwm-workspace-switch (- exwm-workspace-current-index 1))))
+(exwm-input-set-key (kbd "<tab-bar> <double-mouse-8>") (lambda () (interactive) (exwm-workspace-switch (- exwm-workspace-current-index 1))))
 (exwm-input-set-key (kbd "<tab-bar> <double-mouse-9>") (lambda () (interactive) (exwm-workspace-switch (+ exwm-workspace-current-index 1))))
 (exwm-input-set-key (kbd "<double-mouse-10>") (lambda () (interactive) (exwm-workspace-switch (- exwm-workspace-current-index 1))))
+(exwm-input-set-key (kbd "<double-mouse-8>") (lambda () (interactive) (exwm-workspace-switch (- exwm-workspace-current-index 1))))
 (exwm-input-set-key (kbd "<double-mouse-9>") (lambda () (interactive) (exwm-workspace-switch (+ exwm-workspace-current-index 1))))
 
 ;; Rebind s-tab after consult is loaded

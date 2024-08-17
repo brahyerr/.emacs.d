@@ -1,7 +1,9 @@
 ;;;; Which workspaces should be on which display
 (setq exwm-randr-workspace-monitor-plist
       (pcase (system-name)
-	("nix-GO" '(8 "HDMI-A-0" 9 "HDMI-A-0"))))
+	("nix-STATION" '(9 "HDMI-A-1" 0 "HDMI-A-1"))
+	("nix-GO" '(8 "HDMI-A-0" 9 "HDMI-A-0"))
+	("nixpad" '(8 "HDMI-A-0" 9 "HDMI-A-0"))))
 
 (setq exwm-workspace-warp-cursor t)
 

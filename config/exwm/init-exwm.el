@@ -25,7 +25,8 @@
 (defun local/set-wallpaper ()
   (interactive)
   (start-process-shell-command
-   "feh" nil (format "feh --bg-center --image-bg 'white' %s" (expand-file-name "vendor/papes/gimmick_bg_variant-no_logo.png" user-emacs-directory))))
+   "feh" nil (format "feh --bg-scale --image-bg 'white' %s" "~/Pictures/fabrizio-conti-9oKZm8YgcnA-unsplash.jpg")))
+   ;; "feh" nil (format "feh --bg-scale --image-bg 'white' %s" (expand-file-name "vendor/papes/gimmick_bg_1440p_variant3.png" user-emacs-directory))))
 ;; Set the wallpaper after setting screen resolution
 (local/set-wallpaper)
 

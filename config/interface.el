@@ -11,7 +11,7 @@
 (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 
 ;;;; colortheme
-(load-theme 'ef-elea-light t)
+;; (load-theme 'ef-elea-light t)
 
 ;; (use-package spacious-padding
 ;;   :config
