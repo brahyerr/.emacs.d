@@ -3,12 +3,6 @@
 ;; Add config dir to load-path
 (add-to-list 'load-path (expand-file-name "config" user-emacs-directory))
 
-;; Load exwm if it is present
-(if (package-installed-p 'exwm)
-    (progn
-      (add-to-list 'load-path (expand-file-name "config/exwm" user-emacs-directory))
-      (require 'init-exwm)))
-
 ;; Startup speed, annoyance suppression
 (setq gc-cons-threshold 10000000)
 (setq byte-compile-warnings '(not obsolete))
@@ -137,5 +131,11 @@ If the new path's directories does not exist, create them."
 (require 'pdf_local)
 (require 'irc_local)
 (require 'media-player)
+
+;; Load exwm if it is present
+(if (package-installed-p 'exwm)
+    (progn
+      (add-to-list 'load-path (expand-file-name "config/exwm" user-emacs-directory))
+      (require 'init-exwm)))
 
 (provide 'init)
