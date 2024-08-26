@@ -4,14 +4,33 @@
 (defcustom local/default-font-height
       (pcase (system-name)
 	("nix-GO" 120)
-	("nixpad" 115)
+	("nixpad" 105)
 	("nix-STATION" 120))
   "The default font height for other font variables to base their height attributes off of."
   :type '(integer))
 
-(setq-default line-spacing 2)
-(set-face-attribute 'default nil :family "monospace" :height local/default-font-height :weight 'regular)
-(set-face-attribute 'tooltip nil :family "monospace" :height local/default-font-height :weight 'regular)
+(setq-default line-spacing 3)
+
+;; Bitmap
+(defun local/bitmap-fonts ()
+  (set-face-attribute 'default nil :family "nexus" :height local/default-font-height :weight 'regular)
+  (set-face-attribute 'tooltip nil :family "nexus" :height local/default-font-height :weight 'regular)
+  ;; (set-fontset-font t '(#x00100 . #xf02d4) "Cozette")
+  ;; (set-fontset-font t 'unicode "nexus")
+  (set-fontset-font t 'unicode "Cozette" nil 'prepend)
+  (set-fontset-font t 'symbol "Noto Color Emoji" nil 'append)
+  )
+
+(defun local/monospace-fonts ()
+  (set-face-attribute 'default nil :family "monospace" :height local/default-font-height :weight 'regular)
+  (set-face-attribute 'tooltip nil :family "monospace" :height local/default-font-height :weight 'regular)
+  )
+
+(fset 'local/set-fonts 'local/bitmap-fonts)
+
+(if (daemonp)
+    (add-hook 'server-after-make-frame-hook #'local/set-fonts)
+  (local/set-fonts))
 
 ;; Set the variable pitch face
 (set-face-attribute 'variable-pitch nil :family "sans" :height local/default-font-height :weight 'regular)
