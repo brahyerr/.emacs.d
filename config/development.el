@@ -51,6 +51,7 @@
   ;;  (c++-mode . eglot-ensure)
   ;;  (java-mode . eglot-ensure))
   :config
+  (setq eglot-ignored-server-capabilities '(:inlayHintProvider))  ; note this makes turning inlay hints back on a bit diffcult
   ;; configure clangd for c++ and c
   (when-let* ((clangd (seq-find #'executable-find '("clangd" "clangd-6.0")))
               ;; this has to match the tool string in compile-commands.json
