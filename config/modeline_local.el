@@ -4,6 +4,7 @@
 
 (use-package moody
   :config
+  (setq moody-mode-line-height 24)
   (set-face-attribute 'mode-line nil :box 'unspecified)
   (set-face-attribute 'mode-line-inactive nil :box 'unspecified)
   (moody-replace-mode-line-front-space)

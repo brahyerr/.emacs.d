@@ -24,7 +24,7 @@
 	 (curr (exwm-workspace--position exwm-workspace--current)))
     (format "%s\n"
 	    (mapconcat (lambda (i)
-			 (if (= i curr) "" ""))
+			 (if (= i curr) "" "○"))
 		       sequence " "))))
 
 (defun local/exwm-report-workspaces-list--fn ()
