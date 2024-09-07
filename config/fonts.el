@@ -4,8 +4,8 @@
 (defcustom local/default-font-height
       (pcase (system-name)
 	("nix-GO" 120)
-	("nixpad" 105)
-	("nix-STATION" 120))
+	("nixpad" 100)
+	("nix-STATION" 100))
   "The default font height for other font variables to base their height attributes off of."
   :type '(integer))
 
@@ -13,12 +13,15 @@
 
 ;; Bitmap
 (defun local/bitmap-fonts ()
-  (set-face-attribute 'default nil :family "nexus" :height local/default-font-height :weight 'regular)
-  (set-face-attribute 'tooltip nil :family "nexus" :height local/default-font-height :weight 'regular)
+  (set-face-attribute 'default nil :family "envypn" :height local/default-font-height :weight 'regular)
+  (set-face-attribute 'tooltip nil :family "envypn" :height local/default-font-height :weight 'regular)
   ;; (set-fontset-font t '(#x00100 . #xf02d4) "Cozette")
   ;; (set-fontset-font t 'unicode "nexus")
+  (set-fontset-font t 'unicode "CozetteHiDpi" nil 'prepend)
   (set-fontset-font t 'unicode "Cozette" nil 'prepend)
   (set-fontset-font t 'symbol "Noto Color Emoji" nil 'append)
+  (setq split-width-threshold 160)
+  (setq split-height-threshold 120)
   )
 
 (defun local/monospace-fonts ()
@@ -46,7 +49,7 @@
 (add-hook 'org-mode-hook
 	  (lambda ()
 	    (set-face-attribute 'org-level-1 nil                   :height 1.5)
-	    (set-face-attribute 'org-level-2 nil                   :height 1.3)
+	    (set-face-attribute 'org-level-2 nil                   :height 1.25)
 	    (set-face-attribute 'org-level-3 nil                   :height 1.1)
 	    (set-face-attribute 'org-level-4 nil                   :height 1.1)
 	    (set-face-attribute 'org-level-5 nil                   :height 1.0)

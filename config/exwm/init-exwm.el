@@ -24,16 +24,18 @@
 
 (defun local/set-wallpaper ()
   (interactive)
-  (start-process-shell-command
-   "feh" nil (format "feh --bg-scale --image-bg 'white' %s" "~/Pictures/fabrizio-conti-9oKZm8YgcnA-unsplash.jpg")))
-   ;; "feh" nil (format "feh --bg-scale --image-bg 'white' %s" (expand-file-name "vendor/papes/gimmick_bg_1440p_variant3.png" user-emacs-directory))))
+  (let ((path (pcase (system-name)
+		("nix-STATION" "~/Pictures/fabrizio-conti-9oKZm8YgcnA-unsplash.jpg")
+		("nixpad"      (expand-file-name "vendor/papes/gimmick_bg_variant-no_logo.png" user-emacs-directory)))))
+    (start-process-shell-command
+     "feh" nil (format "feh --bg-center --image-bg 'white' %s" path))))
 ;; Set the wallpaper after setting screen resolution
 (local/set-wallpaper)
 
 ;; Load the system tray before exwm-init
-(require 'exwm-systemtray)
-(setq exwm-systemtray-height 16)
-(exwm-systemtray-enable)
+;; (require 'exwm-systemtray)
+;; (setq exwm-systemtray-height 18)
+;; (exwm-systemtray-enable)
 
 (defun local/exwm-rename-buffer ()
   (interactive)
@@ -163,8 +165,8 @@
                        (start-process-shell-command command nil command)))
 	  
 	  ;; Spawn eat terminal
-	  ([s-return] . eat)
-	  
+	  ([s-return] . vterm)
+
           ;; Switch workspace
           ([?\s-w] . exwm-workspace-switch)
 	  ;; ([double-mouse-10] . (lambda () (interactive) (exwm-workspace-switch (- exwm-workspace-current-index 1))))
