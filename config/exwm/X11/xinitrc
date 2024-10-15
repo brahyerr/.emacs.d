@@ -2,7 +2,7 @@
 # They will not exit with this process, so we will no longer have a clean X11 shutdown.
 
 # Disable access control for the current user.
-xhost +SI:localuser:$USER
+# xhost +SI:localuser:$USER
 
 # Make Java applications aware this is a non-reparenting window manager.
 export _JAVA_AWT_WM_NONREPARENTING=1
@@ -34,6 +34,9 @@ xsetroot -cursor_name left_ptr
 
 # Enable "Num Lock" mode, on keyboard keypad
 # /usr/bin/numlockx on &
+
+# Set stylus button to pan. Doing it here cause I can't figure out how to do it in xorg.conf
+xsetwacom --set "Wacom Intuos S Pen stylus" "Button" "2" "pan"
 
 # Uncomment the following block to use the exwm-xim module. Not something I use.
 #export XMODIFIERS=@im=exwm-xim

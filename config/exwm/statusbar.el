@@ -24,7 +24,9 @@
 	 (curr (exwm-workspace--position exwm-workspace--current)))
     (format "%s\n"
 	    (mapconcat (lambda (i)
-			 (if (= i curr) "" "○"))
+			 (if (= i curr) "●" "○"))
+			 ;; (if (= i curr) "" "○"))
+			 ;; (if (= i curr) "" "○"))
 		       sequence " "))))
 
 (defun local/exwm-report-workspaces-list--fn ()
@@ -51,6 +53,7 @@
                     tab-bar-format-global
 		    ))
   :config
+  (setq tab-bar-auto-width-max '((110) 10))
   (tab-bar-mode 1))
 
 (use-package i3bar
@@ -104,7 +107,9 @@
 	   ("#FFFFFF" `(:foreground ,(face-foreground 'error nil t))))
 	 (pcase (and background (upcase background))
 	   ("#000000" nil)
-	   ("#111111" 'default))))
+	   ("#111111" `(:family "monospace" :background ,(face-background 'default nil t))))))  ; fixes i3bar being influenced by variable-pitch
+	   ;; ("#000000" nil)
+	   ;; ("#111111" 'default))))
     ))
 
 (defun i3bar-set-face-theme ()

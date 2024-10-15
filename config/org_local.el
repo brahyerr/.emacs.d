@@ -52,6 +52,7 @@
 (use-package org
   :hook (org-mode . local/org-mode-setup)
   :config
+  (setq-default org-list-indent-offset 4)
   (setq org-ellipsis " \u25be"
 	org-agenda-start-with-log-mode t
 	org-log-into-drawer t))

@@ -124,7 +124,7 @@ If the new path's directories does not exist, create them."
 (require 'keybinds)
 (require 'org_local)
 (require 'fonts)
-(require 'drawing)
+;; (require 'drawing)
 (require 'latex_local)
 (require 'shell_local)
 (require 'llm_local)
