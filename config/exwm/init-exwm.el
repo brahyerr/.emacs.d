@@ -18,7 +18,9 @@
   (exwm-workspace-switch-create 1)
   ;; Launch apps that will run in the background
   (local/run-in-background "redshift -l 43.7:-79.3 -t 6500:4500 -g 0.8 -m randr")
-  (local/run-in-background "nm-applet")
+  ;; (local/run-in-background "nm-applet")
+  (local/run-in-background "blueman-applet")
+  (local/run-in-background "flameshot")
   ;; (local/run-in-background "dunst")
   )
 
@@ -26,16 +28,19 @@
   (interactive)
   (let ((path (pcase (system-name)
 		("nix-STATION" "~/Pictures/fabrizio-conti-9oKZm8YgcnA-unsplash.jpg")
-		("nixpad"      (expand-file-name "vendor/papes/gimmick_bg_variant-no_logo.png" user-emacs-directory)))))
+		;; ("nixpad"      "~/Pictures/kirbytile.jpg")
+		("nixpad"      (expand-file-name "vendor/papes/gimmick_bg_variant-no_logo.png" user-emacs-directory))
+		)))
     (start-process-shell-command
      "feh" nil (format "feh --bg-center --image-bg 'white' %s" path))))
+     ;; "feh" nil (format "feh --bg-fill %s" path))))
 ;; Set the wallpaper after setting screen resolution
 (local/set-wallpaper)
 
 ;; Load the system tray before exwm-init
-;; (require 'exwm-systemtray)
-;; (setq exwm-systemtray-height 18)
-;; (exwm-systemtray-enable)
+(require 'exwm-systemtray)
+(setq exwm-systemtray-height 18)
+(exwm-systemtray-mode)
 
 (defun local/exwm-rename-buffer ()
   (interactive)
@@ -49,7 +54,7 @@
 
 ;;;; Ensure screen updates with xrandr will refresh EXWM frames
 (require 'exwm-randr)
-(exwm-randr-enable)
+(exwm-randr-mode)
 
 (require 'app-launcher)  ; SebastienWae/app-launcher
 
@@ -163,6 +168,10 @@
           ([?\s-&] . (lambda (command)
                        (interactive (list (read-shell-command "$ ")))
                        (start-process-shell-command command nil command)))
+
+	  ;; Screenshot with flameshot (separate from desktop-environment-screenshot)
+	  ([C-print] .
+	   (lambda () (interactive) (start-process-shell-command "flameshot-capture" nil "flameshot gui")))
 	  
 	  ;; Spawn eat terminal
 	  ([s-return] . vterm)
@@ -198,7 +207,7 @@
 (require 'desktop)
 (require 'keybinds_exwm)
 
-;; (use-package corfu-exwm
-;;   :after corfu)
+(use-package corfu-exwm
+  :after corfu)
 
 (provide 'init-exwm)
