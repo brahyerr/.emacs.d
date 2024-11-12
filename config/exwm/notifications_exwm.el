@@ -49,7 +49,13 @@
 ;;                                             (buffer-string)))
 ;;                     (ednc-notification-amendments new))))))
 ;;   (advice-add 'ednc--amend-icon :override #'ednc--amend-icon-override)
-  (advice-add 'ednc--append-new-notification-to-log-buffer :override #'ednc--append-new-notification-to-log-buffer-override))
+  (advice-add 'ednc--append-new-notification-to-log-buffer :override #'ednc--append-new-notification-to-log-buffer-override)
+  (defun ednc-dismiss-newest-notification ()
+    "Dismiss the notification at the top of the stack."
+    (interactive)
+    (unless (not (ednc-notifications))
+      (ednc--close-notification-by-id (aref (car (ednc-notifications)) 1))))
+  )
 
 
 (provide 'notifications_exwm)
