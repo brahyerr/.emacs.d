@@ -29,10 +29,11 @@
   (let ((path (pcase (system-name)
 		("nix-STATION" "~/Pictures/fabrizio-conti-9oKZm8YgcnA-unsplash.jpg")
 		;; ("nixpad"      "~/Pictures/kirbytile.jpg")
-		("nixpad"      (expand-file-name "vendor/papes/gimmick_bg_variant-no_logo.png" user-emacs-directory))
+		;; ("nixpad"      (expand-file-name "vendor/papes/gimmick_bg_variant-no_logo.png" user-emacs-directory))
+		("nixpad"      "~/repos/papes/cinnamoroll-5k-cute-5120x5120-11712.png")
 		)))
     (start-process-shell-command
-     "feh" nil (format "feh --bg-center --image-bg 'white' %s" path))))
+     "feh" nil (format "feh --bg-fill --image-bg 'white' %s" path))))
      ;; "feh" nil (format "feh --bg-fill %s" path))))
 ;; Set the wallpaper after setting screen resolution
 (local/set-wallpaper)
@@ -207,7 +208,7 @@
 (require 'desktop)
 (require 'keybinds_exwm)
 
-(use-package corfu-exwm
-  :after corfu)
+;; (use-package corfu-exwm
+;;   :after corfu)
 
 (provide 'init-exwm)

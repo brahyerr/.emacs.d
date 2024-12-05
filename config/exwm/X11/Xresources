@@ -1,8 +1,8 @@
-Xft.dpi:        110
+Xft.dpi:        100
 Xft.antialias:  true
 Xft.rgba:       rgb
 Xft.hinting:    true
 Xft.autohint:   true
 Xft.hintstyle:  hintfull
 
-URxvt*font:     xft:monospace:size=11
+URxvt*font:     xft:monospace:size=12

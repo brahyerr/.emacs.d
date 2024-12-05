@@ -2,10 +2,40 @@ clear lock
 clear control
 clear mod1
 keycode 66 = Control_L
-keycode 37 = Escape
-keycode 108 = Delete
+keycode 37 = Control_R
+keycode 108 = Escape
 keycode 105 = BackSpace
 add control = Control_L
 add mod1 = Alt_L
+add mod4 = Control_R
+
+! Numpad key mappings
+! keycode 63     KP_Multiply
+! keycode 77     Num_Lock
+! keycode 79     KP_Home
+! keycode 80     KP_Up
+! keycode 81     KP_Prior
+! keycode 82     KP_Subtract
+! keycode 83     KP_Left
+! keycode 84     KP_Begin
+! keycode 85     KP_Right
+! keycode 86     KP_Add
+! keycode 87     KP_End
+! keycode 88     KP_Down
+! keycode 89     KP_Next
+! keycode 90     KP_Insert
+! keycode 91     KP_Delete
+! keycode 104    KP_Enter
+! keycode 106    KP_Divide
+
+keycode 79 = XF86AudioLowerVolume
+keycode 80 = XF86AudioMute
+keycode 81 = XF86AudioRaiseVolume
+keycode 83 = XF86AudioPrev
+keycode 84 = XF86AudioPause
+keycode 85 = XF86AudioNext
+keycode 87 = XF86MonBrightnessDown
+keycode 89 = XF86MonBrightnessUp
+keycode 106 = XF86AudioMicMute
 ! Disable mouse/trackpad/trackpoint middle click paste
 ! pointer = 1 25 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20

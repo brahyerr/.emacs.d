@@ -64,22 +64,6 @@
     ))
 
 (defun i3bar-face-function-theme (foreground background)
-  (if (custom-theme-enabled-p 'kaolin-bubblegum)
-      (list
-       (pcase (and foreground (upcase foreground))
-	 ;; ("#000000" `(:foreground "grey90"))
-	 ;; ("#111111" `(:foreground))
-	 ("#000000" `(:foreground ,(face-background 'tab-line nil t)))           ; separators
-	 ("#111111" `(:foreground ,(face-background 'default nil t)))            ; separators
-	 ("#AAAAAA" `(:foreground ,(face-foreground 'shadow nil t)))            ; separators
-	 ("#BBBBBB" nil)
-	 ("#CCCCCC" `(:foreground ,(face-foreground 'success nil t)))
-	 ("#EEEEEE" `(:foreground ,(face-foreground 'warning nil t)))
-	 ("#FFFFFF" `(:foreground ,(face-foreground 'error nil t))))
-       (pcase (and background (upcase background))
-	 ("#000000" nil)
-	 ("#111111" 'default)))
-    (if (or (custom-theme-enabled-p 'kaolin-dark) (custom-theme-enabled-p 'kaolin-aurora))
 	(list
 	 (pcase (and foreground (upcase foreground))
 	   ;; ("#000000" `(:foreground "grey90"))
@@ -93,24 +77,10 @@
 	   ("#FFFFFF" `(:foreground ,(face-foreground 'error nil t))))
 	 (pcase (and background (upcase background))
 	   ("#000000" nil)
-	   ("#111111" `(:background ,(face-background 'mode-line-inactive nil t)))))
-    	(list
-	 (pcase (and foreground (upcase foreground))
-	   ;; ("#000000" `(:foreground "grey90"))
-	   ;; ("#111111" `(:foreground))
-	   ("#000000" `(:foreground ,(face-background 'mode-line-inactive nil t))) ; separators
-	   ("#111111" `(:foreground ,(face-background 'default nil t)))            ; separators
-	   ("#AAAAAA" 'shadow)
-	   ("#BBBBBB" nil)
-	   ("#CCCCCC" `(:foreground ,(face-foreground 'success nil t)))
-	   ("#EEEEEE" `(:foreground ,(face-foreground 'warning nil t)))
-	   ("#FFFFFF" `(:foreground ,(face-foreground 'error nil t))))
-	 (pcase (and background (upcase background))
-	   ("#000000" nil)
-	   ("#111111" `(:family "monospace" :background ,(face-background 'default nil t))))))  ; fixes i3bar being influenced by variable-pitch
+	   ("#111111" `(:background ,(face-background 'mode-line-inactive nil t))))))
+	   ;; ("#111111" `(:family "monospace" :background ,(face-background 'default nil t))))))  ; fixes i3bar being influenced by variable-pitch
 	   ;; ("#000000" nil)
 	   ;; ("#111111" 'default))))
-    ))
 
 (defun i3bar-set-face-theme ()
   (custom-set-variables '(i3bar-face-function #'i3bar-face-function-theme)))
