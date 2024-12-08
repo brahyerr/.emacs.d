@@ -151,8 +151,8 @@
 
 	  ;; Move between buffers
 	  ([s-tab] . switch-to-buffer)
-	  ([M-tab] . switch-to-next-buffer)
-	  ([M-S-iso-lefttab] . switch-to-prev-buffer)
+	  ([M-tab] . switch-to-prev-buffer)
+	  ([M-S-iso-lefttab] . switch-to-next-buffer)
 	  ([M-iso-lefttab] . switch-to-prev-buffer) ; sometimes the previous bind doesnt work
 	  
 	  ;; Swap windows
