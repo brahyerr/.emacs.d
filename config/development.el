@@ -1,5 +1,8 @@
 ;; -*- lexical-binding: t; -*-
 
+;; Indent levels
+(setq js-indent-level 8)
+
 ;; CC mode settings (C, C++, Java, etc)
 (setq-default c-default-style "linux"
 	      c-basic-offset 8)
